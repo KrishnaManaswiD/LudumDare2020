@@ -19,7 +19,7 @@ def main():
     # Store objects in a batch to load them efficiently
     main_batch = pyglet.graphics.Batch()
 
-    # groups - 0 darn first, 10 drawn last
+    # groups - 0 drawn first, 10 drawn last
     groups = []
     for i in range(10):
         groups.append(pyglet.graphics.OrderedGroup(i))
@@ -40,7 +40,10 @@ def main():
                               anchor_x='center', anchor_y='center',
                               batch=main_batch, group=groups[1])
 
+    # common game state for all the game objects
     state = GameState()
+
+    # player
     player = Player(state, assets, x=500, y=500, batch=main_batch, group=groups[5])
     window.push_handlers(player)
     window.push_handlers(player.key_handler)
@@ -71,30 +74,33 @@ def main():
 
     def update(dt):
         # primitive collision detection
+        # loop over pairs of game objects
         for i in range(len(game_objects)):
             for j in range(i + 1, len(game_objects)):
                 object_one = game_objects[i]
                 object_two = game_objects[j]
-
+                # if either of the objects are not dead
                 if not object_one.dead and not object_two.dead:
                     if object_one.collides_with(object_two):
+                        # handle collision with each other
                         object_one.handle_collision_with(object_two)
                         object_two.handle_collision_with(object_one)
 
-        to_add = []  # list of new objects to add
-
+        objects_to_add = []  # list of new objects to add
+        # update positions, state of each object and
+        # collect all children that each object may spawn
         for obj in game_objects:
-            obj.update_object(dt)
-            to_add.extend(obj.child_objects)  # add objects that this game object wants to spawn
+            obj.update_object(dt)       # update the current position and state of objects
+            objects_to_add.extend(obj.child_objects)  # add objects that this game object wants to spawn
             obj.child_objects = []  # clear the list
 
         # remove objects that are dead
-        for to_remove in [obj for obj in game_objects if obj.dead]:
-            to_remove.delete()
-            game_objects.remove(to_remove)
+        for objects_to_remove in [obj for obj in game_objects if obj.dead]:
+            objects_to_remove.delete()
+            game_objects.remove(objects_to_remove)
 
         # add new objects
-        game_objects.extend(to_add)
+        game_objects.extend(objects_to_add)
 
     pyglet.clock.schedule_interval(update, 1 / 120.0)
     pyglet.app.run()
