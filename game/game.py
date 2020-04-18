@@ -3,12 +3,13 @@ from pyglet.window import mouse
 
 from modules.game_assets import GameAssets
 from modules.game_state import GameState
-
+from modules.player import Player
 
 def main():
     window = pyglet.window.Window(1000, 1000, "game title",
                                   resizable=True,
-                                  style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS)
+                                  # style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS
+                                  )
 
     # Store objects in a batch to load them efficiently
     main_batch = pyglet.graphics.Batch()
@@ -30,7 +31,8 @@ def main():
                               batch=main_batch)
 
     state = GameState()
-
+    player = Player(state, assets, x=500, y=500, batch=main_batch)
+    window.push_handlers(player)
 
     @window.event
     def on_draw():

@@ -54,7 +54,7 @@ class GameAssets():
         pyglet.resource.reindex()
 
         # load images
-        self.create_image_asset("img_player", "images/red.png", True)
+        self.create_image_asset("img_player", "images/player.png", True)
         self.create_image_asset("img_bkg", "images/bkg.png", False)
 
         # load audio
