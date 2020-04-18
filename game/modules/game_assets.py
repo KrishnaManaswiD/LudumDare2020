@@ -55,7 +55,8 @@ class GameAssets():
 
         # load images
         self.create_image_asset("img_player", "images/player.png", True)
-        self.create_image_asset("img_bkg", "images/bkg.png", False)
+        self.create_image_asset("img_bkg", "images/bkg_1000x1000.png", False)
+        self.create_image_asset("img_circle", "images/circle_100.png", True)
 
         # load audio
         self.create_audio_asset("bkg_music", "music/bkg.wav", True)
