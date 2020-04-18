@@ -21,3 +21,10 @@ class GameObject(pyglet.sprite.Sprite):
         self.type = None            # Specifies the type of the object - player, enemy, bullet etc.
         self.child_objects = []     # List of objects that can be spawned by this object
         self.game_state = None      # Game state object
+
+    def update_object(self):
+        """
+        Virtual update_object function. This is not named update because the Sprite object has a
+        function called update
+        """
+        pass
