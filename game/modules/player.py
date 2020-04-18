@@ -17,6 +17,23 @@ class Player(GameObject):
         # TODO make this a sprite later
         super(Player, self).__init__(img=images[0], *args, **kwargs)
 
-        self.game_state = game_state
-        self.type = "player"
+        self.game_state = game_state                # game state object
+        self.type = "player"                        # type of game object
 
+        self.key_handler = key.KeyStateHandler()    # Key press handler
+
+        self.move_step = 10     # Distance by which to move in each key press
+        self.life = 100         # Life of the player
+
+    def update_object(self):
+        if self.key_handler[key.LEFT]:
+            self.x -= self.move_step
+
+        if self.keyHandler[key.RIGHT]:
+            self.x += self.move_step
+
+        if self.keyHandler[key.UP]:
+            self.y += self.move_step
+
+        if self.keyHandler[key.DOWN]:
+            self.y -= self.move_step
