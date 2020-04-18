@@ -6,6 +6,7 @@ from pyglet.window import mouse
 from modules.game_assets import GameAssets
 from modules.game_state import GameState
 from modules.player import Player
+from modules.virus import Virus
 from modules.circle_collider import CircleCollider
 from modules.polygon_collider import PolygonCollider
 from modules import util
@@ -63,8 +64,9 @@ def main():
                                           ('c3b', [100,200,200, 100,200,200, 100,200,200]))
 
 
+    virus = Virus(state, assets, x=100, y=700, batch=main_batch, group=groups[5])
     # list of all game objects
-    game_objects = [player] + cells + [polygon]
+    game_objects = [player] + cells + [polygon] + [virus]
 
     @window.event
     def on_draw():
