@@ -91,11 +91,11 @@ def do_intersect(p1, q1, p2, q2):
     return False
 
 
-def is_inside_polygon(polygon, p):
+def is_inside_polygon(p, polygon):
     """
     returns True is p is inside the polygon
-    polygon - set of vertices stored as a list of Points
     p - the test point
+    polygon - set of vertices stored as a list of Points
     """
     n = len(polygon)
     if n < 3:
@@ -118,4 +118,4 @@ def is_inside_polygon(polygon, p):
         if i == 0:
             break
     # return True if count is even, else False
-    return intersections&1
+    return intersections & 1

@@ -24,6 +24,7 @@ class GameObject(pyglet.sprite.Sprite):
         self.game_state = None      # Game state object
         self.dead = False           # whether this object has to be removed from screen or not
         self.collision_radius = 0   # circle collider radius
+        self.collider_type = None   # "circle" or "polygon"
 
     def update_object(self, dt):
         """
@@ -32,10 +33,23 @@ class GameObject(pyglet.sprite.Sprite):
         """
         pass
 
-    def collides_with(self, other_object):
+    def check_circle_circle_collision(self, other_object):
         collision_distance = self.collision_radius + other_object.collision_radius
         actual_distance = util.distance(self.position, other_object.position)
         return actual_distance <= collision_distance
 
+    def check_point_polygon_collision(self, other_object):
+        p = util.Point(self.x, self.y)
+        polygon = other_object.vertices
+        return util.is_inside_polygon(p, polygon)
+
+    def collides_with(self, other_object):
+        if self.collider_type == 'circle' and other_object.collider_type == 'circle':
+            return self.check_circle_circle_collision(other_object)
+        if self.collider_type == 'circle' and other_object.collider_type == 'polygon':
+            return self.check_point_polygon_collision(other_object)
+
     def handle_collision_with(self, other_object):
         self.dead = True
+
+

@@ -1,10 +1,14 @@
 import pyglet
+from pyglet.gl import GL_POINTS
+from pyglet.gl import GL_TRIANGLES
 from pyglet.window import mouse
 
 from modules.game_assets import GameAssets
 from modules.game_state import GameState
 from modules.player import Player
 from modules.circle_collider import CircleCollider
+from modules.polygon_collider import PolygonCollider
+from modules import util
 
 def main():
     window = pyglet.window.Window(1000, 1000, "game title",
@@ -43,16 +47,27 @@ def main():
 
     # create a game level - collection of obstacles
     cells = []
-    for i in range(100):
-        cells.append(CircleCollider(state, assets, x=i, y=100, batch=main_batch, group=groups[5]))
+    for i in range(5):
+        cells.append(CircleCollider(state, assets, x=i*100, y=100, batch=main_batch, group=groups[5]))
+
+    verts = []
+    verts.append(util.Point(700, 500))
+    verts.append(util.Point(900, 500))
+    verts.append(util.Point(800, 800))
+    polygon = PolygonCollider(verts, state, assets)
+
+    glvertices = pyglet.graphics.vertex_list(3, ('v2i', [700, 500, 900, 500, 800, 800]),
+                                          ('c3b', [100,200,200, 100,200,200, 100,200,200]))
+
 
     # list of all game objects
-    game_objects = [player] + cells
+    game_objects = [player] + cells + [polygon]
 
     @window.event
     def on_draw():
         window.clear()
         main_batch.draw()
+        glvertices.draw(GL_TRIANGLES)
 
     def update(dt):
         # primitive collision detection
