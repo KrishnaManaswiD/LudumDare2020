@@ -11,8 +11,7 @@ class Virus(GameObject):
 
     def __init__(self, game_state, game_assets, *args, **kwargs):
         """
-        Initializes the player object
-        :param game_state: game state
+        :param game_state:
         :param game_assets:
         :param args:
         :param kwargs:
