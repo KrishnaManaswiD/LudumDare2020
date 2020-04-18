@@ -6,15 +6,16 @@ from modules.game_object import GameObject
 class PolygonCollider(GameObject):
     def __init__(self, vertices, game_state, game_assets, *args, **kwargs):
         """
-        Initializes the player object
+        Initializes the PolygonCollider object
         :param vertices: vertices that define the polygon
         :param game_state: game state
-        :param game_assets:
-        :param args:
-        :param kwargs:
+        :param game_assets: game assets
+        :param args: additional positional arguments
+        :param kwargs: additional keyword arguments
         """
         images = [game_assets.image_assets["img_circle"]]
         super(PolygonCollider, self).__init__(img=images[0], *args, **kwargs)
+
         self.game_state = game_state
         self.type = "polygon"
         self.vertices = vertices

@@ -81,6 +81,7 @@ def main():
                 object_two = game_objects[j]
                 # if either of the objects are not dead
                 if not object_one.dead and not object_two.dead:
+                    # check collision
                     if object_one.collides_with(object_two):
                         # handle collision with each other
                         object_one.handle_collision_with(object_two)
