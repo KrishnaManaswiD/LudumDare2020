@@ -28,7 +28,6 @@ class Bullet(GameObject):
         self.move_step = 0.5  # Distance by which to move in each key press
         self.velocity_x = 0
         self.velocity_y = 0
-        print("bullet spawned at ", self.x, self.y)
 
     def update_object(self, dt):
         self.x += self.velocity_x * dt
@@ -39,8 +38,7 @@ class Bullet(GameObject):
         if other_object.type == "circle":
             self.dead = False
         if other_object.type == "virus":
-            self.dead = True        # kill myself
-            # TODO damage the virus.
+            self.dead = True        # kill myself, damage to virus is handled by the virus
         if other_object.type == "polygon":
             self.dead = True        # kill myself
             # TODO damage the polygon.

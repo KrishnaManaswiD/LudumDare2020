@@ -30,6 +30,8 @@ class Virus(GameObject):
         self.collision_radius = self.width/2        # collision radius
         self.previous_position = None
 
+        self.life = 100     # life of the virus
+
         self.move_step = 0.5     # Distance by which to move in each key press
         pyglet.clock.schedule_interval(self.release_particle, 7)
 
@@ -55,3 +57,10 @@ class Virus(GameObject):
         if other_object.type == "polygon":
             self.dead = False
             self.position = self.previous_position
+        if other_object.type == "bullet":
+            # inflict damage by bullet
+            self.life -= self.game_state.damage_virus_by_bullet
+            if self.life <= 0:
+                self.dead = True
+            else:
+                self.dead = False
