@@ -6,6 +6,7 @@ from pyglet.window import mouse
 from modules.game_assets import GameAssets
 from modules.game_state import GameState
 from modules.player import Player
+from modules.healthbar import HealthBar
 from modules.virus import Virus
 from modules.circle_collider import CircleCollider
 from modules.polygon_collider import PolygonCollider
@@ -48,6 +49,9 @@ def main():
     player = Player(state, assets, x=100, y=400, batch=main_batch, group=groups[5])
     window.push_handlers(player)
     window.push_handlers(player.key_handler)
+
+    # health bar
+    health_bar = HealthBar(state, assets, x=0, y=900, batch=main_batch, group=groups[6])
 
     # create a game level - collection of obstacles
     cells = []

@@ -60,6 +60,7 @@ class GameAssets():
         self.create_image_asset("img_virus", "images/virus.png", True)
         self.create_image_asset("img_virus_particle", "images/virus_particle.png", True)
         self.create_image_asset("img_bullet", "images/bullet.png", True)
+        self.create_image_asset("img_health_bar", "images/health_bar.png", True)
 
         # load audio
         self.create_audio_asset("bkg_music", "music/bkg.wav", True)
