@@ -1,3 +1,4 @@
+import math
 import pyglet
 from pyglet.window import key
 
@@ -5,7 +6,6 @@ from modules.game_object import GameObject
 from modules import util
 from modules import bullet
 
-import math
 
 class Player(GameObject):
 
@@ -103,6 +103,9 @@ class Player(GameObject):
 
         self.x += self.drift_speed * math.sin(self.rotation * math.pi / 180)
         self.y += self.drift_speed * math.cos(self.rotation * math.pi / 180)
+
+        # update state with the player's position
+        self.game_state.player_position = self.position
 
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":

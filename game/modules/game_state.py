@@ -25,3 +25,6 @@ class GameState(object):
         self.score_inc_virus_killed = 25
         self.score_inc_virus_particle_killed = 10
         self.score_inc_infection_killed = 25
+
+        # player posiiton
+        self.player_position = None
