@@ -68,11 +68,14 @@ class GameAssets():
         self.create_image_asset("img_virus_D", "images/virus_D.png", True)
         self.create_image_asset("img_virus_particle", "images/virus_particle.png", True)
         self.create_image_asset("img_bullet", "images/bullet.png", True)
+        self.create_image_asset("img_bullet_1", "images/bullet_1.png", True)
+        self.create_image_asset("img_bullet_2", "images/bullet_2.png", True)
         self.create_image_asset("img_health_bar", "images/health_bar.png", True)
         self.create_image_asset("img_infection", "images/infection.png", True)
 
         # load audio
         self.create_audio_asset("bkg_music", "music/bkg.wav", True)
+        self.create_audio_asset("ost_music", "music/ost.wav", True)
         self.create_audio_asset("snd_player_death", "sounds/Booming_Rumble.wav", False)
         self.create_audio_asset("snd_player_fire", "sounds/Zap_power_down_1.wav", False)
         self.create_audio_asset("snd_virus_birth", "sounds/Booming_Rumble.wav", False)

@@ -64,6 +64,7 @@ class Player(GameObject):
                                    group=self.group)    # mentioning group is important
         new_bullet.velocity_x = self.bullet_speed * math.sin(self.rotation * math.pi / 180)
         new_bullet.velocity_y = self.bullet_speed * math.cos(self.rotation * math.pi / 180)
+        new_bullet.rotation = self.rotation
         self.child_objects.append(new_bullet)
         self.game_assets.audio_assets["snd_player_fire"].play()
 

@@ -29,7 +29,14 @@ def main():
     # load required resources
     assets = GameAssets()
 
-    # backgroung
+    # background music score
+    background_music = assets.audio_assets["ost_music"]
+    p = pyglet.media.Player()
+    p.queue(background_music)
+    p.loop = True
+    p.play()
+
+    # background
     bkg = pyglet.sprite.Sprite(img=assets.image_assets["img_bkg"],
                                x=0, y=0, batch=main_batch, group=groups[0])
 
