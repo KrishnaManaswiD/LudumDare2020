@@ -15,12 +15,8 @@ Potential sounds:
 TODO:
 ---
 - random virus spawn
-- virus seeking player
-- virus infecting tissues
-
 
 - infection to health
-
 
 - levels
 
