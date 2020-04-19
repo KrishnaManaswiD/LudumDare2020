@@ -1,8 +1,8 @@
 import pyglet
 from pyglet.window import key
 
-from game_object import GameObject
-from game_assets import GameAssets
+from modules.game_object import GameObject
+from modules.game_assets import GameAssets
 
 class Bullet(GameObject):
 
