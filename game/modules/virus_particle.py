@@ -21,7 +21,7 @@ class VirusParticle(GameObject):
         super(VirusParticle, self).__init__(img=images[0], *args, **kwargs)
 
         self.game_state = game_state                # game state object
-        self.type = "virus_particle"                         # type of game object
+        self.type = "virus_particle"                # type of game object
 
         self.key_handler = key.KeyStateHandler()    # Key press handler
         self.collider_type = "circle"               # Type of collider attached to this object
