@@ -82,7 +82,6 @@ class Player(GameObject):
             if self.drift_speed < self.drift_speed_min:
                 self.drift_speed = self.drift_speed_min
 
-
         if symbol == key.W:
             self.drift_speed += 1
             if self.drift_speed > self.drift_speed_max:
