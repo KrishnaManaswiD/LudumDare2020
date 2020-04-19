@@ -34,7 +34,7 @@ class Virus(GameObject):
 
         self.seek_player = True
         self.proximity_threshold = 200
-        self.seeking_step = 1
+        self.seeking_step = 1.2
 
         self.move_step = 0.5     # Distance by which to move in each key press
         pyglet.clock.schedule_interval(self.release_particle, 7)
