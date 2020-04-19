@@ -25,17 +25,3 @@ class GameState(object):
         self.score_inc_virus_killed = 25
         self.score_inc_virus_particle_killed = 10
         self.score_inc_infection_killed = 25
-
-    def get_score(self):
-        """
-        Returns the current score
-        :return: self.score
-        """
-        return self.score
-
-    def increase_score_by(self, value):
-        """
-        Increases the score by the specified value
-        :param value: Value to increase the score by.
-        """
-        self.score += value

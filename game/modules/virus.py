@@ -50,7 +50,7 @@ class Virus(GameObject):
         """
         self.life -= amount
         if self.life <= 0:
-            self.game_state.increase_score_by(self.game_state.score_inc_virus_killed)   # increase score
+            self.game_state.score += self.game_state.score_inc_virus_killed   # increase score
             pyglet.clock.unschedule(self.release_particle)      # unschedule the release particle function
             self.dead = True
         else:
