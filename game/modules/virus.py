@@ -41,6 +41,18 @@ class Virus(GameObject):
         particle.velocity_y = random.randrange(-50,50)
         self.child_objects.append(particle)
 
+    def inflict_damage(self, amount):
+        """
+        Inflicts damage to the object. If the life of the object reaches 0, the object dies.
+        :param amount: amount of damage to inflict
+        """
+        self.life -= amount
+        if self.life <= 0:
+            self.dead = True
+        else:
+            self.game_state.increase_score_by(self.game_state.score_inc_virus_killed)
+            self.dead = False
+
     def update_object(self, dt):
         self.previous_position = self.position
         self.x += random.randrange(-1, 2, 2) * self.move_step
@@ -51,16 +63,13 @@ class Virus(GameObject):
         if other_object.type == "circle":
             self.dead = False
             self.position = self.previous_position
-        if other_object.type == "virus":
+        elif other_object.type == "virus":
             self.dead = False
-            pass
-        if other_object.type == "polygon":
+        elif other_object.type == "polygon":
             self.dead = False
             self.position = self.previous_position
-        if other_object.type == "bullet":
-            # inflict damage by bullet
-            self.life -= self.game_state.damage_virus_by_bullet
-            if self.life <= 0:
-                self.dead = True
-            else:
-                self.dead = False
+        elif other_object.type == "bullet":
+            self.inflict_damage(self.game_state.damage_virus_by_bullet)
+        elif other_object.type == "player":
+            self.inflict_damage(self.game_state.damage_virus_by_player)
+

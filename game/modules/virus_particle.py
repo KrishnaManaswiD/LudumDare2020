@@ -43,9 +43,15 @@ class VirusParticle(GameObject):
         if other_object.type == "circle":
             self.dead = False
             self.position = self.previous_position
-        if other_object.type == "virus":
-            self.dead = False
-            pass
-        if other_object.type == "polygon":
+        elif other_object.type == "polygon":
             self.dead = False
             self.position = self.previous_position
+        elif other_object.type == "virus":
+            self.dead = False   # no friendly fire
+        elif other_object.type == "player":
+            self.dead = True    # kill myself
+        elif other_object.type == "bullet":
+            self.game_state.increase_score_by(self.game_state.score_inc_virus_particle_killed)
+            self.dead = True  # kill myself
+
+

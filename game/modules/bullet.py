@@ -37,10 +37,12 @@ class Bullet(GameObject):
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
             self.dead = False
-        if other_object.type == "virus":
+        elif other_object.type == "virus":
             self.dead = True        # kill myself, damage to virus is handled by the virus
-        if other_object.type == "polygon":
+        elif other_object.type == "polygon":
+            print("bullet colliding with polygon")
             self.dead = True        # kill myself
-            # TODO damage the polygon.
-        if other_object.type == "player":
-            self.dead = False        # do not kill myself
+        elif other_object.type == "player":
+            self.dead = False       # no friendly fire
+        elif other_object.type == "virus_particle":
+            self.dead = True        # kill myself
