@@ -15,7 +15,7 @@ class Bullet(GameObject):
         :param kwargs:
         """
         images = [game_assets.image_assets["img_bullet_1"], game_assets.image_assets["img_bullet_2"]]
-        anim = pyglet.image.Animation.from_image_sequence(images, duration=0.1, loop=True)
+        anim = pyglet.image.Animation.from_image_sequence(images, duration=1, loop=True)
         super(Bullet, self).__init__(img=anim, *args, **kwargs)
 
         self.game_state = game_state        # game state object
