@@ -173,7 +173,7 @@ def get_gl_polygon(vertices):
         indices.extend([0,i+1,i+2])
     colours = []
     for i in range(num_vertices):
-        colours.extend([1.0,0.7,0.0])
+        colours.extend([0.3,0.0,0.3])
     polygon = pyglet.graphics.vertex_list_indexed(num_vertices, indices, ('v2i', vertices), ('c3f', colours))
     return polygon
 
