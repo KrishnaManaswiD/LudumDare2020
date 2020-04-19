@@ -24,6 +24,8 @@ class CircleCollider(GameObject):
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
             self.dead = False
+        elif other_object.type == "polygon":
+            self.dead = False
         elif other_object.type == "player":
             self.dead = False
         elif other_object.type == "bullet":
@@ -31,6 +33,8 @@ class CircleCollider(GameObject):
         elif other_object.type == "virus":
             self.dead = False
         elif other_object.type == "virus_particle":
+            self.dead = False
+        elif other_object.type == "infection":
             self.dead = False
 
     def update_object(self, dt):

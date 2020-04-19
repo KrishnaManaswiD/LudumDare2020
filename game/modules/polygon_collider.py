@@ -32,6 +32,8 @@ class PolygonCollider(GameObject):
             self.dead = False
         elif other_object.type == "virus_particle":
             self.dead = False
+        elif other_object.type == "infection":
+            self.dead = False
 
     def update_object(self, dt):
         # state change code comes here

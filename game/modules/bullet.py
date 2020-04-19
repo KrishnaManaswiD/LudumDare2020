@@ -47,3 +47,5 @@ class Bullet(GameObject):
             self.dead = False       # no friendly fire
         elif other_object.type == "bullet":
             self.dead = False       # no friendly fire
+        elif other_object.type == "infection":
+            self.dead = True        # kill myself, damage to infection in handled by the infection

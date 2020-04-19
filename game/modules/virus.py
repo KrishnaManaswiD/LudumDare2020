@@ -32,6 +32,10 @@ class Virus(GameObject):
 
         self.life = 100     # life of the virus
 
+        self.seek_player = True
+        self.proximity_threshold = 200
+        self.seeking_step = 1.2
+
         self.move_step = 0.5     # Distance by which to move in each key press
         pyglet.clock.schedule_interval(self.release_particle, 7)
 
@@ -56,11 +60,29 @@ class Virus(GameObject):
         else:
             self.dead = False
 
+    def get_distance_to_player(self):
+        player_position = self.game_state.player_position
+        return util.distance((player_position[0], player_position[1]),
+                             (self.x, self.y))
+
     def update_object(self, dt):
         self.previous_position = self.position
-        self.x += random.randrange(-1, 2, 2) * self.move_step
-        self.y += random.randrange(-1, 2, 2) * self.move_step
-        self.rotation += random.randrange(-1, 2, 2) * self.move_step
+        if self.seek_player and self.game_state.player_position is not None:
+            dist = self.get_distance_to_player()
+            if dist < self.proximity_threshold:
+                x_dir = (self.game_state.player_position[0] - self.x) / dist
+                y_dir = (self.game_state.player_position[1] - self.y) / dist
+
+                self.x += x_dir * self.seeking_step
+                self.y += y_dir * self.seeking_step
+            else:
+                self.x += random.randrange(-1, 2, 2) * self.move_step
+                self.y += random.randrange(-1, 2, 2) * self.move_step
+                self.rotation += random.randrange(-1, 2, 2) * self.move_step
+        else:
+            self.x += random.randrange(-1, 2, 2) * self.move_step
+            self.y += random.randrange(-1, 2, 2) * self.move_step
+            self.rotation += random.randrange(-1, 2, 2) * self.move_step
 
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
@@ -76,4 +98,6 @@ class Virus(GameObject):
             self.inflict_damage(self.game_state.damage_virus_by_bullet)
         elif other_object.type == "player":
             self.inflict_damage(self.game_state.damage_virus_by_player)
+        elif other_object.type == "infection":
+            self.dead = False
 
