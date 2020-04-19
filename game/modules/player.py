@@ -56,12 +56,12 @@ class Player(GameObject):
         Creates a new bullet object and adds it to the list of child objects
         """
         bullet_x = self.x
-        bullet_y = self.y + self.height_max / 2
+        bullet_y = self.y
         new_bullet = bullet.Bullet(self.game_state, self.game_assets,
                                    x=bullet_x, y=bullet_y, batch=self.batch,
                                    group=self.group)    # mentioning group is important
-        new_bullet.velocity_x = 0
-        new_bullet.velocity_y = self.bullet_speed
+        new_bullet.velocity_x = self.bullet_speed * math.sin(self.rotation * math.pi / 180)
+        new_bullet.velocity_y = self.bullet_speed * math.cos(self.rotation * math.pi / 180)
         self.child_objects.append(new_bullet)
 
     def on_key_press(self, symbol, modifiers):
