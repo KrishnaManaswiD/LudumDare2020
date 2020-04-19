@@ -36,7 +36,9 @@ class Virus(GameObject):
         pyglet.clock.schedule_interval(self.release_particle, 7)
 
     def release_particle(self, dt):
-        particle = VirusParticle(self.game_state, self.game_assets, x=self.x, y=self.y, batch=self.batch, group=self.group)
+        particle = VirusParticle(self.game_state, self.game_assets,
+                                 x=self.x, y=self.y, batch=self.batch,
+                                 group=self.group)
         particle.velocity_x = random.randrange(-50,50)
         particle.velocity_y = random.randrange(-50,50)
         self.child_objects.append(particle)
@@ -64,10 +66,11 @@ class Virus(GameObject):
         if other_object.type == "circle":
             self.dead = False
             self.position = self.previous_position
-        elif other_object.type == "virus":
-            self.dead = False
         elif other_object.type == "polygon":
             self.dead = False
+            self.position = self.previous_position
+        elif other_object.type == "virus":
+            self.dead = False   # two viruses bump away when they collide
             self.position = self.previous_position
         elif other_object.type == "bullet":
             self.inflict_damage(self.game_state.damage_virus_by_bullet)

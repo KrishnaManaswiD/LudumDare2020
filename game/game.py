@@ -64,11 +64,11 @@ def main():
     vertices4 = [0, 0, 300, 0, 0, 300]
     vertices5 = [500, 200, 500, 0, 1000, 0, 1000, 200, 900, 300]
 
-    polygon1 = PolygonCollider(util.get_points(vertices1), state, assets)
-    polygon2 = PolygonCollider(util.get_points(vertices2), state, assets)
-    polygon3 = PolygonCollider(util.get_points(vertices3), state, assets)
-    polygon4 = PolygonCollider(util.get_points(vertices4), state, assets)
-    polygon5 = PolygonCollider(util.get_points(vertices5), state, assets)
+    polygon1 = PolygonCollider(util.get_points(vertices1), state, assets, group=groups[5])
+    polygon2 = PolygonCollider(util.get_points(vertices2), state, assets, group=groups[5])
+    polygon3 = PolygonCollider(util.get_points(vertices3), state, assets, group=groups[5])
+    polygon4 = PolygonCollider(util.get_points(vertices4), state, assets, group=groups[5])
+    polygon5 = PolygonCollider(util.get_points(vertices5), state, assets, group=groups[5])
 
     virus = Virus(state, assets, x=800, y=500, batch=main_batch, group=groups[5])
     # list of all game objects

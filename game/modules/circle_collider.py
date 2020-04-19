@@ -1,7 +1,9 @@
 import pyglet
 
-from modules import game_assets, game_state
+from modules.game_assets import GameAssets
+from modules.game_state import GameState
 from modules.game_object import GameObject
+
 
 class CircleCollider(GameObject):
     def __init__(self, game_state, game_assets, *args, **kwargs):
@@ -22,10 +24,14 @@ class CircleCollider(GameObject):
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
             self.dead = False
-            pass
-        if other_object.type == "player":
+        elif other_object.type == "player":
             self.dead = False
-
+        elif other_object.type == "bullet":
+            self.dead = False
+        elif other_object.type == "virus":
+            self.dead = False
+        elif other_object.type == "virus_particle":
+            self.dead = False
 
     def update_object(self, dt):
         # state change code comes here
