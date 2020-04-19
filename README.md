@@ -14,23 +14,11 @@ Potential sounds:
 
 TODO:
 ---
-- bullets
-- bullets collision with objects  
-
-
 - random virus spawn
 - virus seeking player
 - virus infecting tissues
 
 
-- collision handlers
-
-
-- player movement  
-
-
-- scoring
-- life
 - infection to health
 
 
