@@ -1,5 +1,5 @@
 import math
-
+import pyglet
 
 def distance(point_a=(0, 0), point_b=(0, 0)):
     """
@@ -164,3 +164,22 @@ def is_inside_polygon(p, polygon):
             break
     # return True if count is even, else False
     return intersections & 1
+
+
+def get_gl_polygon(vertices):
+    num_vertices = len(vertices) // 2
+    indices = []
+    for i in range(num_vertices-2):
+        indices.extend([0,i+1,i+2])
+    colours = []
+    for i in range(num_vertices):
+        colours.extend([1.0,0.7,0.0])
+    polygon = pyglet.graphics.vertex_list_indexed(num_vertices, indices, ('v2i', vertices), ('c3f', colours))
+    return polygon
+
+
+def get_points(vertices):
+    points = []
+    for i in range(0, len(vertices), 2):
+        points.append(Point(vertices[i], vertices[i+1]))
+    return points

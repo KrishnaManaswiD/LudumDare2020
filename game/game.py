@@ -45,34 +45,40 @@ def main():
     state = GameState()
 
     # player
-    player = Player(state, assets, x=500, y=500, batch=main_batch, group=groups[5])
+    player = Player(state, assets, x=100, y=400, batch=main_batch, group=groups[5])
     window.push_handlers(player)
     window.push_handlers(player.key_handler)
 
     # create a game level - collection of obstacles
     cells = []
-    for i in range(5):
-        cells.append(CircleCollider(state, assets, x=i*100, y=100, batch=main_batch, group=groups[5]))
+    # for i in range(5):
+    #     cells.append(CircleCollider(state, assets, x=i*100, y=100, batch=main_batch, group=groups[5]))
 
-    verts = []
-    verts.append(util.Point(700, 500))
-    verts.append(util.Point(900, 500))
-    verts.append(util.Point(800, 800))
-    polygon = PolygonCollider(verts, state, assets)
+    vertices1 = [0, 1000, 0, 600, 100, 600, 300, 800, 300, 1000]
+    vertices2 = [500, 1000, 600, 800, 700, 800, 1000, 600, 1000, 1000]
+    vertices3 = [500, 700, 300, 500, 400, 400, 700, 400, 700, 500]
+    vertices4 = [0, 0, 300, 0, 0, 300]
+    vertices5 = [500, 200, 500, 0, 1000, 0, 1000, 200, 900, 300]
 
-    glvertices = pyglet.graphics.vertex_list(3, ('v2i', [700, 500, 900, 500, 800, 800]),
-                                          ('c3b', [100,200,200, 100,200,200, 100,200,200]))
+    polygon1 = PolygonCollider(util.get_points(vertices1), state, assets)
+    polygon2 = PolygonCollider(util.get_points(vertices2), state, assets)
+    polygon3 = PolygonCollider(util.get_points(vertices3), state, assets)
+    polygon4 = PolygonCollider(util.get_points(vertices4), state, assets)
+    polygon5 = PolygonCollider(util.get_points(vertices5), state, assets)
 
-
-    virus = Virus(state, assets, x=100, y=700, batch=main_batch, group=groups[5])
+    virus = Virus(state, assets, x=800, y=500, batch=main_batch, group=groups[5])
     # list of all game objects
-    game_objects = [player] + cells + [polygon] + [virus]
+    game_objects = [player] + cells + [polygon1, polygon2, polygon3, polygon4, polygon5] + [virus]
 
     @window.event
     def on_draw():
         window.clear()
         main_batch.draw()
-        glvertices.draw(GL_TRIANGLES)
+        util.get_gl_polygon(vertices1).draw(GL_TRIANGLES)
+        util.get_gl_polygon(vertices2).draw(GL_TRIANGLES)
+        util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
+        util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
+        util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
 
     def update(dt):
         # primitive collision detection
