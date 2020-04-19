@@ -5,6 +5,8 @@ from modules.game_object import GameObject
 from modules import util
 from modules import bullet
 
+import math
+
 class Player(GameObject):
 
     def __init__(self, game_state, game_assets, *args, **kwargs):
@@ -31,6 +33,10 @@ class Player(GameObject):
         self.height_max = 50
 
         self.move_step = 10         # Distance by which to move in each key press
+
+        self.rotate_speed = 10
+        self.drift_speed = 1
+
         self.life = 100             # Life of the player
         self.bullet_speed = 100     # speed with which a bullet is released
 
@@ -69,6 +75,12 @@ class Player(GameObject):
             # fire bullet if space is pressed
             self.fire()
 
+        if symbol == key.S:
+            self.drift_speed -= 1
+
+        if symbol == key.W:
+            self.drift_speed += 1
+
     def update_object(self, dt):
         self.previous_position = self.position
         if self.key_handler[key.LEFT]:
@@ -82,6 +94,15 @@ class Player(GameObject):
 
         if self.key_handler[key.DOWN]:
             self.y -= self.move_step
+
+        if self.key_handler[key.A]:
+            self.rotation -= self.rotate_speed * dt
+
+        if self.key_handler[key.D]:
+            self.rotation += self.rotate_speed * dt
+
+        self.x += self.drift_speed * math.sin(self.rotation * math.pi / 180)
+        self.y += self.drift_speed * math.cos(self.rotation * math.pi / 180)
 
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
