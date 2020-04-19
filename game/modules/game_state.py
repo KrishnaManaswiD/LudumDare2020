@@ -21,6 +21,8 @@ class GameState(object):
         self.damage_player_by_virus_particle = 10
         self.damage_player_by_infection = 40
 
+        self.damage_infection_by_bullet = 25
+
         # add all score increments here All game objects will use these variables
         self.score_inc_virus_killed = 25
         self.score_inc_virus_particle_killed = 10

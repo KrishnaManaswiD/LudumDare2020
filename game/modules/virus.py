@@ -76,4 +76,6 @@ class Virus(GameObject):
             self.inflict_damage(self.game_state.damage_virus_by_bullet)
         elif other_object.type == "player":
             self.inflict_damage(self.game_state.damage_virus_by_player)
+        elif other_object.type == "infection":
+            self.dead = False
 
