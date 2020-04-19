@@ -43,13 +43,18 @@ class GameObject(pyglet.sprite.Sprite):
         polygon = other_object.vertices
         return util.is_inside_polygon(p, polygon)
 
+    def check_polygon_point_collsion(self, other_object):
+        p = util.Point(other_object.x, other_object.y)
+        polygon = self.vertices
+        return util.is_inside_polygon(p, polygon)
+
     def collides_with(self, other_object):
         if self.collider_type == 'circle' and other_object.collider_type == 'circle':
             return self.check_circle_circle_collision(other_object)
-        if self.collider_type == 'circle' and other_object.collider_type == 'polygon':
+        elif self.collider_type == 'circle' and other_object.collider_type == 'polygon':
             return self.check_point_polygon_collision(other_object)
+        elif self.collider_type == 'polygon' and other_object.collider_type == 'circle':
+            return self.check_polygon_point_collsion(other_object)
 
     def handle_collision_with(self, other_object):
         self.dead = True
-
-
