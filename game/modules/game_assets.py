@@ -54,10 +54,15 @@ class GameAssets():
         pyglet.resource.reindex()
 
         # load images
-        self.create_image_asset("img_player", "images/player.png", True)
-        self.create_image_asset("img_bkg", "images/bkg_1000x1000.png", False)
+        # self.create_image_asset("img_player", "images/player.png", True)
+        self.create_image_asset("img_player_1", "images/player_1.png", True)
+        self.create_image_asset("img_player_2", "images/player_2.png", True)
+        self.create_image_asset("img_player_3", "images/player_3.png", True)
+        self.create_image_asset("img_bkg", "images/bkg_red_1000x1000.png", False)
+        self.create_image_asset("img_frg", "images/openCVTest2_transparent.png", False)
         self.create_image_asset("img_circle", "images/circle_100.png", True)
         self.create_image_asset("img_virus", "images/virus.png", True)
+        self.create_image_asset("img_virus_A", "images/virus_A.png", True)
         self.create_image_asset("img_virus_particle", "images/virus_particle.png", True)
         self.create_image_asset("img_bullet", "images/bullet.png", True)
         self.create_image_asset("img_health_bar", "images/health_bar.png", True)
@@ -65,5 +70,12 @@ class GameAssets():
 
         # load audio
         self.create_audio_asset("bkg_music", "music/bkg.wav", True)
-        self.create_audio_asset("snd_zap", "sounds/zap_1_1.wav", False)
+        self.create_audio_asset("snd_player_death", "sounds/Booming_Rumble.wav", False)
+        self.create_audio_asset("snd_player_fire", "sounds/Zap_power_down_1.wav", False)
+        self.create_audio_asset("snd_virus_birth", "sounds/Booming_Rumble.wav", False)
+        self.create_audio_asset("snd_virus_fire", "sounds/Booming_Rumble.wav", False)
+        self.create_audio_asset("snd_virus_death", "sounds/Booming_Rumble.wav", False)
+        self.create_audio_asset("snd_infection_birth", "sounds/Booming_Rumble.wav", False)
+        self.create_audio_asset("snd_infection_death", "sounds/abstract_atmosphere_083.wav", False)
+        self.create_audio_asset("snd_impending_doom", "sounds/Booming_Rumble.wav", False)
 

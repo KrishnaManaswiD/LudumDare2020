@@ -17,7 +17,7 @@ class Virus(GameObject):
         :param args:
         :param kwargs:
         """
-        images = [game_assets.image_assets["img_virus"]]
+        images = [game_assets.image_assets["img_virus_A"]]
         # TODO make this a sprite later
         super(Virus, self).__init__(img=images[0], *args, **kwargs)
 

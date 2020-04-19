@@ -58,17 +58,26 @@ def main():
     # for i in range(5):
     #     cells.append(CircleCollider(state, assets, x=i*100, y=100, batch=main_batch, group=groups[5]))
 
-    vertices1 = [0, 1000, 0, 600, 100, 600, 300, 800, 300, 1000]
-    vertices2 = [500, 1000, 600, 800, 700, 800, 1000, 600, 1000, 1000]
-    vertices3 = [500, 700, 300, 500, 400, 400, 700, 400, 700, 500]
-    vertices4 = [0, 0, 300, 0, 0, 300]
-    vertices5 = [500, 200, 500, 0, 1000, 0, 1000, 200, 900, 300]
+    vertices1 = [1001, 1001, 513, 1001, 519, 843, 562, 801, 878, 722, 939, 752]
+    vertices2 = [101, 746, 244, 715, 301, 726, 301, 765, 239, 886, 281, 1001, 0, 1001]
+    vertices3 = [625, 448, 571, 493, 567, 531, 582, 563, 503, 556, 398, 575, 349, 526, 449, 526, 525, 472, 526, 427, 495, 343]
+    vertices4 = [1001, 0, 1001, 368, 740, 206, 623, 177]
+    vertices5 = [374, 0, 228, 252, 420, 444, 0, 379]
+
+
+    # vertices1 = [0, 1000, 0, 600, 100, 600, 300, 800, 300, 1000]
+    # vertices2 = [500, 1000, 600, 800, 700, 800, 1000, 600, 1000, 1000]
+    # vertices3 = [500, 700, 300, 500, 400, 400, 700, 400, 700, 500]
+    # vertices4 = [0, 0, 300, 0, 0, 300]
+    # vertices5 = [500, 200, 500, 0, 1000, 0, 1000, 200, 900, 300]
 
     polygon1 = PolygonCollider(util.get_points(vertices1), state, assets, group=groups[5])
     polygon2 = PolygonCollider(util.get_points(vertices2), state, assets, group=groups[5])
     polygon3 = PolygonCollider(util.get_points(vertices3), state, assets, group=groups[5])
     polygon4 = PolygonCollider(util.get_points(vertices4), state, assets, group=groups[5])
     polygon5 = PolygonCollider(util.get_points(vertices5), state, assets, group=groups[5])
+
+    # frg = pyglet.sprite.Sprite(img=assets.image_assets["img_frg"], x=0, y=0, batch=main_batch, group=groups[7])
 
     virus = Virus(state, assets, x=800, y=500, batch=main_batch, group=groups[5])
     # list of all game objects

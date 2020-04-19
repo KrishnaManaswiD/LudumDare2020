@@ -17,9 +17,9 @@ class Player(GameObject):
         :param args:
         :param kwargs:
         """
-        images = [game_assets.image_assets["img_player"]]
-        # TODO make this a sprite later
-        super(Player, self).__init__(img=images[0], *args, **kwargs)
+        images = [game_assets.image_assets["img_player_1"], game_assets.image_assets["img_player_2"], game_assets.image_assets["img_player_3"]]
+        anim = pyglet.image.Animation.from_image_sequence(images, duration=0.5, loop=True)
+        super(Player, self).__init__(img=anim, *args, **kwargs)
 
         self.game_state = game_state                # game state object
         self.game_assets = game_assets              # game assets object
@@ -27,7 +27,7 @@ class Player(GameObject):
 
         self.key_handler = key.KeyStateHandler()    # Key press handler
         self.collider_type = "circle"               # Type of collider attached to this object
-        self.collision_radius = self.width/2        # collision radius
+        self.collision_radius = self.image.get_max_height()/2        # collision radius
         self.previous_position = None
 
         self.height_max = 50
@@ -65,6 +65,7 @@ class Player(GameObject):
         new_bullet.velocity_x = self.bullet_speed * math.sin(self.rotation * math.pi / 180)
         new_bullet.velocity_y = self.bullet_speed * math.cos(self.rotation * math.pi / 180)
         self.child_objects.append(new_bullet)
+        self.game_assets.audio_assets["snd_player_fire"].play()
 
     def on_key_press(self, symbol, modifiers):
         """
