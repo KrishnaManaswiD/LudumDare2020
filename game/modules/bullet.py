@@ -28,9 +28,11 @@ class Bullet(GameObject):
         self.move_step = 0.5  # Distance by which to move in each key press
         self.velocity_x = 0
         self.velocity_y = 0
-        print("bullet spawned")
+        print("bullet spawned at ", self.x, self.y)
 
     def update_object(self, dt):
+        self.x += self.velocity_x * dt
+        self.y += self.velocity_y * dt
         pass
 
     def handle_collision_with(self, other_object):
@@ -43,5 +45,4 @@ class Bullet(GameObject):
             self.dead = True        # kill myself
             # TODO damage the polygon.
         if other_object.type == "player":
-            self.dead = False        # kill myself
-            # TODO damage the polygon.
+            self.dead = False        # do not kill myself

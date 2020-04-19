@@ -32,8 +32,7 @@ class Player(GameObject):
 
         self.move_step = 10     # Distance by which to move in each key press
         self.life = 100         # Life of the player
-        self.bullet_speed = 10
-
+        self.bullet_speed = 100
 
     def update_object(self, dt):
         self.previous_position = self.position
@@ -50,23 +49,37 @@ class Player(GameObject):
             self.y -= self.move_step
 
     def fire(self):
+        """
+        Creates a new bullet object and adds it to the list of child objects
+        """
         bullet_x = self.x
         bullet_y = self.y + self.height_max / 2
         new_bullet = bullet.Bullet(self.game_state, self.game_assets,
-                                   x=bullet_x, y=bullet_y, batch=self.batch)
+                                   x=bullet_x, y=bullet_y, batch=self.batch,
+                                   group=self.group)    # mentioning group is important
         new_bullet.velocity_x = 0
         new_bullet.velocity_y = self.bullet_speed
         self.child_objects.append(new_bullet)
 
     def on_key_press(self, symbol, modifiers):
-        print("key has been pressed")
+        """
+        Handle extra key presses (possibly lower frequency presses).
+        This function is automatically called by pyglet
+        :param symbol: key that has been pressed
+        :param modifiers: modifier keys like shift, ctrl and alt
+        """
         if symbol == key.SPACE:
+            # fire bullet if space is pressed
             self.fire()
 
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
             self.dead = False
-            # intersection = util.circles_intersection(self.x, self.y, self.collision_radius, other_object.x, other_object.y, other_object.collision_radius)
+            # intersection = util.circles_intersection(self.x, self.y,
+            #                                          self.collision_radius,
+            #                                          other_object.x, other_object.y,
+            #                                          other_object.collision_radius)
+
             # if self.x < other_object.x and self.y < other_object.y:
             #     self.x = intersection[0] - self.collision_radius
             #     self.y = intersection[1] - self.collision_radius
@@ -85,3 +98,5 @@ class Player(GameObject):
             self.dead = False
             self.position = self.previous_position
             print("colliding with polygon")
+        if other_object.type == "bullet":
+            self.dead = False
