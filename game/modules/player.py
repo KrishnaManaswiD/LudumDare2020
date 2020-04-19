@@ -34,11 +34,13 @@ class Player(GameObject):
 
         self.move_step = 10         # Distance by which to move in each key press
 
-        self.rotate_speed = 10
+        self.rotate_speed = 100
         self.drift_speed = 1
+        self.drift_speed_max = 4
+        self.drift_speed_min = -4
 
         self.life = 100             # Life of the player
-        self.bullet_speed = 100     # speed with which a bullet is released
+        self.bullet_speed = 300     # speed with which a bullet is released
 
     def inflict_damage(self, amount):
         """
@@ -77,9 +79,14 @@ class Player(GameObject):
 
         if symbol == key.S:
             self.drift_speed -= 1
+            if self.drift_speed < self.drift_speed_min:
+                self.drift_speed = self.drift_speed_min
+
 
         if symbol == key.W:
             self.drift_speed += 1
+            if self.drift_speed > self.drift_speed_max:
+                self.drift_speed = self.drift_speed_max
 
     def update_object(self, dt):
         self.previous_position = self.position
@@ -128,11 +135,9 @@ class Player(GameObject):
             #     self.x = intersection[0] - self.collision_radius
             #     self.y = intersection[1] + self.collision_radius
             self.position = self.previous_position
-            print("colliding with circle")
         elif other_object.type == "polygon":
             self.dead = False
             self.position = self.previous_position
-            print("colliding with polygon")
         elif other_object.type == "bullet":
             self.dead = False   # nothing happens if a bullet hits the object
         elif other_object.type == "virus":
@@ -141,4 +146,6 @@ class Player(GameObject):
         elif other_object.type == "virus_particle":
             self.inflict_damage(self.game_state.damage_player_by_virus_particle)
         elif other_object.type == "infection":
+            print("colliding with infection")
+            self.position = self.previous_position
             self.inflict_damage(self.game_state.damage_player_by_infection)
