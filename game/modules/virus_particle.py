@@ -36,6 +36,7 @@ class VirusParticle(GameObject):
         pass
 
     def update_object(self, dt):
+        self.previous_position = self.position
         self.x += self.velocity_x * dt
         self.y += self.velocity_y * dt
 
