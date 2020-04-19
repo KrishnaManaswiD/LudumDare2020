@@ -111,7 +111,10 @@ class Player(GameObject):
         self.y += self.drift_speed * math.cos(self.rotation * math.pi / 180)
 
         # update state with the player's position
-        self.game_state.player_position = self.position
+        if self.dead == False:
+            self.game_state.player_position = self.position
+        else:
+            self.game_state.player_position = None
 
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
