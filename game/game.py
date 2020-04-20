@@ -101,7 +101,7 @@ def main():
             state.game_level = 1
             load_stage_1()
 
-    def handle_level_change():
+    def handle_level_change(dt):
         if state.is_time_to_change_level:
             state.is_time_to_change_level = False  # reset toggle
             if state.infection_level < 30:  # if under threshold TODO: make this a variable
@@ -111,8 +111,10 @@ def main():
 
             if state.game_level == 2:
                 remove_all_non_essential_game_objects()
+                state.infection_level = 0
                 load_stage_2()
             if state.game_level == 3:
+                state.infection_level = 0
                 remove_all_non_essential_game_objects()
                 load_stage_3()
 
@@ -244,13 +246,13 @@ def main():
     def load_stage_3():
         pyglet.clock.schedule_once(trigger_level_change, 5)
         # background and foreground
-        state.bkg = GameObject(img=assets.image_assets["img_bkg_level_2"],
+        state.bkg = GameObject(img=assets.image_assets["img_bkg_level_3"],
                                x=0, y=0, batch=main_batch, group=groups[0])
-        state.frg = GameObject(img=assets.image_assets["img_frg_level_2"], x=0, y=0,
+        state.frg = GameObject(img=assets.image_assets["img_frg_level_3"], x=0, y=0,
                                batch=main_batch, group=groups[7])
 
         # player
-        player = Player(state, assets, x=500, y=200,
+        player = Player(state, assets, x=0, y=800,
                         batch=main_batch, group=groups[5])
         window.push_handlers(player)
         window.push_handlers(player.key_handler)
@@ -349,6 +351,22 @@ def main():
 
         # add new objects
         game_objects.extend(objects_to_add)
+
+        # count number of viruses. if more than a set amount, dont add any more
+        virus_count = 0
+        for obj in game_objects:
+            if obj.type in ["virus"]:
+                virus_count += 1
+        if virus_count > 4:
+            state.should_create_new_viruses = False
+        else:
+            state.should_create_new_viruses = True
+
+        # if infection is max, dont fire off new virus particles
+        if state.infection_level >= 100:
+            state.should_fire_new_particles = False
+        else:
+            state.should_fire_new_particles = True
 
         # score counting
 

@@ -41,12 +41,13 @@ class Virus(GameObject):
         pyglet.clock.schedule_interval(self.release_particle, 7)
 
     def release_particle(self, dt):
-        particle = VirusParticle(self.game_state, self.game_assets,
-                                 x=self.x, y=self.y, batch=self.batch,
-                                 group=self.group)
-        particle.velocity_x = random.randrange(-50,50)
-        particle.velocity_y = random.randrange(-50,50)
-        self.child_objects.append(particle)
+        if self.game_state.should_fire_new_particles:
+            particle = VirusParticle(self.game_state, self.game_assets,
+                                     x=self.x, y=self.y, batch=self.batch,
+                                     group=self.group)
+            particle.velocity_x = random.randrange(-50,50)
+            particle.velocity_y = random.randrange(-50,50)
+            self.child_objects.append(particle)
 
     def inflict_damage(self, amount):
         """

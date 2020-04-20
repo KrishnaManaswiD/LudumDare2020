@@ -32,14 +32,15 @@ class VirusSpawner(GameObject):
 
     def spawn_virus(self, dt):
         """
-        Spawns a virus
+        Spawns a virus if not at max limit
         """
-        location_index = random.randint(0, len(self.spawn_locations)-1)
-        virus_location = self.spawn_locations[location_index]
-        virus = Virus(self.game_state, self.game_assets,
-                      x=virus_location[0], y = virus_location[1],
-                      batch=self.batch, group=self.group)
-        self.child_objects.append(virus)
+        if self.game_state.should_create_new_viruses:
+            location_index = random.randint(0, len(self.spawn_locations)-1)
+            virus_location = self.spawn_locations[location_index]
+            virus = Virus(self.game_state, self.game_assets,
+                          x=virus_location[0], y = virus_location[1],
+                          batch=self.batch, group=self.group)
+            self.child_objects.append(virus)
 
     def handle_collision_with(self, other_object):
         self.dead = False
