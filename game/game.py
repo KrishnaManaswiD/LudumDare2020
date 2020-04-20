@@ -2,6 +2,7 @@ import pyglet
 from pyglet.gl import GL_POINTS
 from pyglet.gl import GL_TRIANGLES
 from pyglet.window import mouse
+from pyglet.window import key
 
 from modules.game_assets import GameAssets
 from modules.game_state import GameState
@@ -12,7 +13,9 @@ from modules.virus import Virus
 from modules.virus_spawner import VirusSpawner
 from modules.circle_collider import CircleCollider
 from modules.polygon_collider import PolygonCollider
+from modules.ui import StartScreen
 from modules import util
+
 
 def main():
     window = pyglet.window.Window(1000, 1000, "game title",
@@ -38,38 +41,15 @@ def main():
     p.loop = True
     p.play()
 
-    # background
-    bkg = pyglet.sprite.Sprite(img=assets.image_assets["img_bkg"],
-                               x=0, y=0, batch=main_batch, group=groups[0])
-
-    # title
-    label = pyglet.text.Label('GAME TITLE',
-                              font_name='Times New Roman',
-                              font_size=36,
-                              x=window.width // 2,
-                              y=window.height - 50,
-                              anchor_x='center', anchor_y='center',
-                              batch=main_batch, group=groups[1])
-
     # common game state for all the game objects
     state = GameState()
 
-    # player
-    player = Player(state, assets, x=100, y=400, batch=main_batch, group=groups[5])
-    window.push_handlers(player)
-    window.push_handlers(player.key_handler)
-
-    # health bar
-    health_bar = HealthBar(state, assets, x=state.player_life, y=900,
-                           batch=main_batch, group=groups[8])
-    # infection bar
-    infection_bar = InfectionBar(state, assets, x=state.infection_level, y=920,
+    # # start_screen
+    ui_start = StartScreen(state, assets, window, groups, x=500, y=500,
                                  batch=main_batch, group=groups[8])
-
-    # create a game level - collection of obstacles
-    cells = []
-    # for i in range(5):
-    #     cells.append(CircleCollider(state, assets, x=i*100, y=100, batch=main_batch, group=groups[5]))
+    window.push_handlers(ui_start)
+    window.push_handlers(ui_start.key_handler)
+    game_objects = [ui_start]
 
     vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
     vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
@@ -77,40 +57,16 @@ def main():
     vertices4 = [576, 1001, 601, 902, 744, 851, 837, 712, 969, 651, 1001, 665, 1001, 1001]
     vertices5 = [0, 1001, 0, 811, 137, 810, 282, 876, 275, 1001]
 
-    # vertices = [200, 300, 600, 300, 600, 600, 200, 700]
-
-    # vertices1 = [0, 1000, 0, 600, 100, 600, 300, 800, 300, 1000]
-    # vertices2 = [500, 1000, 600, 800, 700, 800, 1000, 600, 1000, 1000]
-    # vertices3 = [500, 700, 300, 500, 400, 400, 700, 400, 700, 500]
-    # vertices4 = [0, 0, 300, 0, 0, 300]
-    # vertices5 = [500, 200, 500, 0, 1000, 0, 1000, 200, 900, 300]
-
-    polygon1 = PolygonCollider(util.get_points(vertices1), state, assets, "poly1", group=groups[5])
-    polygon2 = PolygonCollider(util.get_points(vertices2), state, assets, "poly2", group=groups[5])
-    polygon3 = PolygonCollider(util.get_points(vertices3), state, assets, "poly3", group=groups[5])
-    polygon4 = PolygonCollider(util.get_points(vertices4), state, assets, "poly4", group=groups[5])
-    polygon5 = PolygonCollider(util.get_points(vertices5), state, assets, "poly5", group=groups[5])
-    # polygon = PolygonCollider(util.get_points(vertices), state, assets, "poly", group=groups[5])
-
-    frg = pyglet.sprite.Sprite(img=assets.image_assets["img_frg"], x=0, y=0, batch=main_batch, group=groups[7])
-
-    # virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
-                                 # batch=main_batch, group=groups[5])
-    # virus = Virus(state, assets, x=800, y=500, batch=main_batch, group=groups[5])
-
-    # list of all game objects
-    game_objects = [player] + cells + [health_bar, infection_bar] + [polygon1, polygon2, polygon3, polygon4, polygon5]
-
     @window.event
     def on_draw():
         window.clear()
         main_batch.draw()
-        util.get_gl_polygon(vertices1).draw(GL_TRIANGLES)
-        util.get_gl_polygon(vertices2).draw(GL_TRIANGLES)
-        util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
-        util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
-        util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
-        # util.get_gl_polygon(vertices).draw(GL_TRIANGLES)
+        if state.game_level == 1:
+            util.get_gl_polygon(vertices1).draw(GL_TRIANGLES)
+            util.get_gl_polygon(vertices2).draw(GL_TRIANGLES)
+            util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
+            util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
+            util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
 
     def update(dt):
         # primitive collision detection

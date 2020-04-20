@@ -29,7 +29,6 @@ class PolygonCollider(GameObject):
         if other_object.type == "circle":
             self.dead = False
         elif other_object.type == "player":
-            print("I {} am colliding with player at {}".format(self.name, self.game_state.player_position))
             self.dead = False
         elif other_object.type == "bullet":
             self.dead = False

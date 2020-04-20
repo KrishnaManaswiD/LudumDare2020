@@ -35,6 +35,10 @@ class GameState(object):
         self.player_life = 100
         self.human_life = 100
 
+        # infection levels
         self.infection_level = 0
         self.infection_by_virus = 5
         self.infection_by_infection = 15
+
+        # game levels
+        self.game_level = 0
