@@ -59,7 +59,7 @@ def main():
     window.push_handlers(player.key_handler)
 
     # health bar
-    health_bar = HealthBar(state, assets, x=0, y=900, batch=main_batch, group=groups[6])
+    health_bar = HealthBar(state, assets, x=250, y=900, batch=main_batch, group=groups[6])
 
     # create a game level - collection of obstacles
     cells = []
@@ -134,6 +134,9 @@ def main():
 
         # add new objects
         game_objects.extend(objects_to_add)
+
+        # update the health bar
+        health_bar.update()
 
     pyglet.clock.schedule_interval(update, 1 / 120.0)
     pyglet.app.run()

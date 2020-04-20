@@ -39,7 +39,6 @@ class Player(GameObject):
         self.drift_speed_max = 4
         self.drift_speed_min = -4
 
-        self.life = 100             # Life of the player
         self.bullet_speed = 300     # speed with which a bullet is released
 
     def inflict_damage(self, amount):
@@ -47,8 +46,8 @@ class Player(GameObject):
         Inflicts damage to the object. If the life of the object reaches 0, the object dies.
         :param amount: amount of damage to inflict
         """
-        self.life -= amount
-        if self.life <= 0:
+        self.game_state.player_life -= amount
+        if self.game_state.player_life <= 0:
             self.dead = True
         else:
             self.dead = False

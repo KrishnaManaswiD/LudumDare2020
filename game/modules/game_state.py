@@ -30,3 +30,6 @@ class GameState(object):
 
         # player posiiton
         self.player_position = None
+
+        # healths
+        self.player_life = 100
