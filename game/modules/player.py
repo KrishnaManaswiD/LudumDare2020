@@ -114,6 +114,7 @@ class Player(GameObject):
         self.x += self.drift_speed * math.sin(self.rotation * math.pi / 180)
         self.y += self.drift_speed * math.cos(self.rotation * math.pi / 180)
 
+        self.check_bounds()
         # update state with the player's position
         if self.dead == False:
             self.game_state.player_position = self.position
@@ -155,3 +156,13 @@ class Player(GameObject):
             print("colliding with infection")
             self.position = self.previous_position
             self.inflict_damage(self.game_state.damage_player_by_infection)
+
+    def check_bounds(self):
+        if self.x > 1000:
+            self.x = 1000
+        if self.y > 1000:
+            self.y = 1000
+        if self.x < 0:
+            self.x = 0
+        if self.y < 0:
+            self.y = 0

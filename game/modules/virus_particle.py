@@ -35,16 +35,14 @@ class VirusParticle(GameObject):
         self.velocity_y = 0
 
     def create_infection(self):
-        infection = Infection(self.game_state, self.game_assets,
-                                 x=self.x, y=self.y, batch=self.batch,
-                                 group=self.group)
-
+        infection = Infection(self.game_state, self.game_assets, x=self.x, y=self.y, batch=self.batch, group=self.group)
         self.child_objects.append(infection)
 
     def update_object(self, dt):
         self.previous_position = self.position
         self.x += self.velocity_x * dt
         self.y += self.velocity_y * dt
+        self.check_bounds()
 
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
@@ -65,3 +63,13 @@ class VirusParticle(GameObject):
             self.dead = True  # kill myself
         elif other_object.type == "infection":
             self.dead = False
+
+    def check_bounds(self):
+        if self.x > 1000:
+            self.dead = True
+        if self.y > 1000:
+            self.dead = True
+        if self.x < 0:
+            self.dead = True
+        if self.y < 0:
+            self.dead = True

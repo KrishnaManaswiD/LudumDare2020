@@ -33,7 +33,7 @@ class Bullet(GameObject):
     def update_object(self, dt):
         self.x += self.velocity_x * dt
         self.y += self.velocity_y * dt
-        pass
+        self.check_bounds()
 
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
@@ -50,3 +50,13 @@ class Bullet(GameObject):
             self.dead = False       # no friendly fire
         elif other_object.type == "infection":
             self.dead = True        # kill myself, damage to infection in handled by the infection
+
+    def check_bounds(self):
+        if self.x > 1000:
+            self.dead = True
+        if self.y > 1000:
+            self.dead = True
+        if self.x < 0:
+            self.dead = True
+        if self.y < 0:
+            self.dead = True

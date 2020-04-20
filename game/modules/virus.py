@@ -83,6 +83,7 @@ class Virus(GameObject):
             self.x += random.randrange(-1, 2, 2) * self.move_step
             self.y += random.randrange(-1, 2, 2) * self.move_step
             self.rotation += random.randrange(-1, 2, 2) * self.move_step
+        self.check_bounds()
 
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
@@ -100,4 +101,14 @@ class Virus(GameObject):
             self.inflict_damage(self.game_state.damage_virus_by_player)
         elif other_object.type == "infection":
             self.dead = False
+
+    def check_bounds(self):
+        if self.x > 1000:
+            self.x = 1000
+        if self.y > 1000:
+            self.y = 1000
+        if self.x < 0:
+            self.x = 0
+        if self.y < 0:
+            self.y = 0
 
