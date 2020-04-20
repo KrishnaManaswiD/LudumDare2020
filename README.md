@@ -5,10 +5,13 @@
 Submission for Ludum Date 46  
 **License**: This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 
-###Description:
+### Description:
 - keep the body alive   
 - clear the Bronchs of viruses and infection   
 - don't let infection grow before time runs out   
+
+![ScreenShot1](/RumbleInTheBronchs/resources/images/screenshot.png)
+
 
 #### Dependencies:  
 - pyglet
@@ -17,10 +20,14 @@ Submission for Ludum Date 46
 ```bash
 pip install pyglet
 ```
+#### Clone this repository:
+```bash
+git clone https://github.com/ballipilla/LudumDare2020
+```
 
 #### To run the game:  
-change directory to RumbleInTheBronchs   
 ```bash
+cd LudumDare2020/RumbleInTheBronchs
 python run_game.py   
 ```
 
