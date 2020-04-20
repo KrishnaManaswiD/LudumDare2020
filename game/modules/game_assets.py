@@ -74,7 +74,6 @@ class GameAssets(object):
         self.create_image_asset("img_virus_C_2", "images/virus_C_2.png", True)
         self.create_image_asset("img_virus_particle", "images/virus_particle.png", True)
 
-        self.create_image_asset("img_bullet", "images/bullet.png", True)
         self.create_image_asset("img_bullet_1", "images/bullet_1.png", True)
         self.create_image_asset("img_bullet_2", "images/bullet_2.png", True)
 
