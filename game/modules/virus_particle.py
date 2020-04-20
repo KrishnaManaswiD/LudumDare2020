@@ -37,6 +37,7 @@ class VirusParticle(GameObject):
     def create_infection(self):
         infection = Infection(self.game_state, self.game_assets, x=self.x, y=self.y, batch=self.batch, group=self.group)
         self.child_objects.append(infection)
+        self.game_assets.audio_assets["snd_infection_birth"].play()
 
     def update_object(self, dt):
         self.previous_position = self.position

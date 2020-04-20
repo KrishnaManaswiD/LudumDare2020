@@ -108,43 +108,57 @@ def main():
             load_stage_1()
 
     def handle_game_over_screen():
-        state.frg.image = assets.image_assets["img_game_over"]
+        # print("game over")
+        state.frg = GameObject(img=assets.image_assets["img_game_over"], x=0, y=0,
+                               batch=main_batch, group=groups[7])
         state.frg.x = 500
         state.frg.y = 500
+        game_objects.append(state.frg)
         if key_handler[key.R]:
             state.game_level = 1
             state.infection_level = 0
             state.player_life = 100
+            state.score = 0
+            remove_all_non_essential_game_objects()
             load_stage_1()
 
     def handle_win_screen():
-        state.frg.image = assets.image_assets["img_win"]
+        state.frg = GameObject(img=assets.image_assets["img_win"], x=0, y=0,
+                               batch=main_batch, group=groups[7])
         state.frg.x = 500
         state.frg.y = 500
+        game_objects.append(state.frg)
         if key_handler[key.R]:
             state.game_level = 1
             state.infection_level = 0
             state.player_life = 100
+            state.score = 0
+            remove_all_non_essential_game_objects()
             load_stage_1()
 
+
     def handle_level_change():
-        if state.infection_level < 30:  # if under threshold TODO: make this a variable
+        if state.infection_level < 50:  # if under threshold TODO: make this a variable
             state.game_level += 1  # move to next level
         else:
             state.game_level = -2  # game over
 
         if state.game_level == 2:
+            assets.audio_assets["snd_level_change"].play()
             remove_all_non_essential_game_objects()
             state.infection_level = 0
             load_stage_2()
         if state.game_level == 3:
+            assets.audio_assets["snd_level_change"].play()
             state.infection_level = 0
             remove_all_non_essential_game_objects()
             load_stage_3()
         if state.game_level == 4:
+            assets.audio_assets["snd_win"].play()
             remove_all_non_essential_game_objects()
             handle_win_screen()
         if state.game_level == -2:
+            assets.audio_assets["snd_game_over"].play()
             remove_all_non_essential_game_objects()
             handle_game_over_screen()
 
@@ -345,7 +359,9 @@ def main():
             handle_game_launch()
         elif state.game_level == 0:
             handle_start_screen()
-        elif state.game_level > 0 and state.time_counter > 5:
+        elif state.game_level > 0 and state.game_level < 5 and state.time_counter > 20:
+            handle_level_change()
+        elif state.game_level == -2:
             handle_level_change()
 
         # primitive collision detection
@@ -398,6 +414,10 @@ def main():
         lbl_score.text = 'score: ' + str(state.score)
 
         state.time_counter += dt
+
+        # player death
+        if state.player_life <= 0:
+            state.game_level = -2
 
     pyglet.clock.schedule_interval(update, 1 / 120.0)
     pyglet.app.run()

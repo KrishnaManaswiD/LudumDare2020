@@ -55,6 +55,7 @@ class Player(GameObject):
         self.game_state.player_life = max(0, self.game_state.player_life - amount)
         if self.game_state.player_life == 0:
             self.dead = True
+            self.game_assets.audio_assets["snd_player_death"].play()
         else:
             self.dead = False
 

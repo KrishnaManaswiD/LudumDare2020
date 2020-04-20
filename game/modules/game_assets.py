@@ -104,14 +104,14 @@ class GameAssets():
 
 
         # load audio
-        self.create_audio_asset("bkg_music", "music/bkg.wav", True)
         self.create_audio_asset("ost_music", "music/ost.wav", True)
-        self.create_audio_asset("snd_player_death", "sounds/Booming_Rumble.wav", False)
-        self.create_audio_asset("snd_player_fire", "sounds/Zap_power_down_1.wav", False)
-        self.create_audio_asset("snd_virus_birth", "sounds/Booming_Rumble.wav", False)
-        self.create_audio_asset("snd_virus_fire", "sounds/Booming_Rumble.wav", False)
-        self.create_audio_asset("snd_virus_death", "sounds/Booming_Rumble.wav", False)
-        self.create_audio_asset("snd_infection_birth", "sounds/Booming_Rumble.wav", False)
-        self.create_audio_asset("snd_infection_death", "sounds/abstract_atmosphere_083.wav", False)
-        self.create_audio_asset("snd_impending_doom", "sounds/Booming_Rumble.wav", False)
+        self.create_audio_asset("snd_player_death", "sounds/player_death.wav", False)
+        self.create_audio_asset("snd_player_fire", "sounds/player_fire.wav", False)
+        self.create_audio_asset("snd_virus_birth", "sounds/virus_birth.wav", False)
+        self.create_audio_asset("snd_infection_birth", "sounds/infection_birth.wav", False)
+        self.create_audio_asset("snd_impending_doom", "sounds/impending_doom.wav", False)
+        self.create_audio_asset("snd_level_change", "sounds/level_change.wav", False)
+        self.create_audio_asset("snd_game_over", "sounds/game_over.wav", False)
+        self.create_audio_asset("snd_win", "sounds/win.wav", False)
+
 
