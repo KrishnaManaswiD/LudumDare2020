@@ -7,6 +7,7 @@ from modules.game_assets import GameAssets
 from modules.game_state import GameState
 from modules.player import Player
 from modules.healthbar import HealthBar
+from modules.infectionbar import InfectionBar
 from modules.virus import Virus
 from modules.virus_spawner import VirusSpawner
 from modules.circle_collider import CircleCollider
@@ -59,19 +60,24 @@ def main():
     window.push_handlers(player.key_handler)
 
     # health bar
-    health_bar = HealthBar(state, assets, x=250, y=900, batch=main_batch, group=groups[6])
+    health_bar = HealthBar(state, assets, x=state.player_life, y=900,
+                           batch=main_batch, group=groups[7])
+    # infection bar
+    infection_bar = InfectionBar(state, assets, x=state.infection_level, y=920,
+                                 batch=main_batch, group=groups[7])
 
     # create a game level - collection of obstacles
     cells = []
     # for i in range(5):
     #     cells.append(CircleCollider(state, assets, x=i*100, y=100, batch=main_batch, group=groups[5]))
 
-    vertices1 = [1001, 1001, 513, 1001, 519, 843, 562, 801, 878, 722, 939, 752]
-    vertices2 = [101, 746, 244, 715, 301, 726, 301, 765, 239, 886, 281, 1001, 0, 1001]
-    vertices3 = [625, 448, 571, 493, 567, 531, 582, 563, 503, 556, 398, 575, 349, 526, 449, 526, 525, 472, 526, 427, 495, 343]
-    vertices4 = [1001, 0, 1001, 368, 740, 206, 623, 177]
-    vertices5 = [374, 0, 228, 252, 420, 444, 0, 379]
+    vertices1 = [1000, 1000, 415, 1000, 435, 893, 537, 824, 824, 776, 1000, 801]
+    vertices2 = [45, 735, 232, 928, 255, 1000, 0, 1000, 0, 729]
+    vertices3 = [402, 378, 627, 402, 697, 554, 606, 667, 375, 637, 256, 520]
+    vertices4 = [1000, 0, 1000, 336, 969, 350, 837, 289, 744, 150, 601, 99, 576, 0]
+    vertices5 = [275, 0, 282, 125, 137, 191, 0, 190, 0, 0]
 
+    # vertices = [200, 300, 600, 300, 600, 600, 200, 700]
 
     # vertices1 = [0, 1000, 0, 600, 100, 600, 300, 800, 300, 1000]
     # vertices2 = [500, 1000, 600, 800, 700, 800, 1000, 600, 1000, 1000]
@@ -79,11 +85,12 @@ def main():
     # vertices4 = [0, 0, 300, 0, 0, 300]
     # vertices5 = [500, 200, 500, 0, 1000, 0, 1000, 200, 900, 300]
 
-    polygon1 = PolygonCollider(util.get_points(vertices1), state, assets, group=groups[5])
-    polygon2 = PolygonCollider(util.get_points(vertices2), state, assets, group=groups[5])
-    polygon3 = PolygonCollider(util.get_points(vertices3), state, assets, group=groups[5])
-    polygon4 = PolygonCollider(util.get_points(vertices4), state, assets, group=groups[5])
-    polygon5 = PolygonCollider(util.get_points(vertices5), state, assets, group=groups[5])
+    polygon1 = PolygonCollider(util.get_points(vertices1), state, assets, "poly1", group=groups[5])
+    polygon2 = PolygonCollider(util.get_points(vertices2), state, assets, "poly2", group=groups[5])
+    # polygon3 = PolygonCollider(util.get_points(vertices3), state, assets, "poly3", group=groups[5])
+    polygon4 = PolygonCollider(util.get_points(vertices4), state, assets, "poly4", group=groups[5])
+    polygon5 = PolygonCollider(util.get_points(vertices5), state, assets, "poly5", group=groups[5])
+    # polygon = PolygonCollider(util.get_points(vertices), state, assets, "poly", group=groups[5])
 
     # frg = pyglet.sprite.Sprite(img=assets.image_assets["img_frg"], x=0, y=0, batch=main_batch, group=groups[7])
 
@@ -92,8 +99,7 @@ def main():
     # virus = Virus(state, assets, x=800, y=500, batch=main_batch, group=groups[5])
 
     # list of all game objects
-    # game_objects = [player] + cells + [polygon1, polygon2, polygon3, polygon4, polygon5] + [virus_spawner]
-    game_objects = [player] + cells + [virus_spawner] + [health_bar]
+    game_objects = [player] + cells + [virus_spawner] + [health_bar, infection_bar] + [polygon1, polygon2, polygon4, polygon5]
 
     @window.event
     def on_draw():
@@ -104,6 +110,7 @@ def main():
         # util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
         # util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
         # util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
+        # util.get_gl_polygon(vertices).draw(GL_TRIANGLES)
 
     def update(dt):
         # primitive collision detection
@@ -135,9 +142,6 @@ def main():
 
         # add new objects
         game_objects.extend(objects_to_add)
-
-        # update the health bar
-        health_bar.update()
 
     pyglet.clock.schedule_interval(update, 1 / 120.0)
     pyglet.app.run()

@@ -4,7 +4,7 @@ from modules import game_assets, game_state
 from modules.game_object import GameObject
 
 class PolygonCollider(GameObject):
-    def __init__(self, vertices, game_state, game_assets, *args, **kwargs):
+    def __init__(self, vertices, game_state, game_assets, name, *args, **kwargs):
         """
         Initializes the PolygonCollider object
         :param vertices: vertices that define the polygon
@@ -20,11 +20,16 @@ class PolygonCollider(GameObject):
         self.type = "polygon"
         self.vertices = vertices
         self.collider_type = "polygon"
+        self.name = name
+        #
+        # for v in vertices:
+        #     print("{}, {}".format(v.x, v.y))
 
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
             self.dead = False
         elif other_object.type == "player":
+            # print("I {} am colliding with player at {}".format(self.name, self.game_state.player_position))
             self.dead = False
         elif other_object.type == "bullet":
             self.dead = False
