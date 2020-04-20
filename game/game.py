@@ -121,9 +121,7 @@ def main():
         state.frg.x = 500
         state.frg.y = 500
         game_objects.append(state.frg)
-        print("go")
         if key_handler[key.R]:
-            print('ro')
             state.game_level = 0
             state.infection_level = 0
             state.player_life = 100
@@ -138,10 +136,8 @@ def main():
         state.frg.x = 500
         state.frg.y = 500
         game_objects.append(state.frg)
-        print("win")
         print(state.time_counter)
         if key_handler[key.R]:
-            print("r")
             state.game_level = 1
             state.infection_level = 0
             state.player_life = 100
@@ -180,7 +176,6 @@ def main():
             remove_all_non_essential_game_objects()
             handle_win_screen()
         elif state.game_level == -2:
-            print("here")
             p.pause()
             assets.audio_assets["snd_game_over"].play()
             remove_all_non_essential_game_objects()
@@ -213,7 +208,9 @@ def main():
                                      batch=main_batch, group=groups[8])
 
         # virus spawner
-        virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
+        spawn_locations = [(166, 705),(406, 721),(809, 542),(452, 220),(195, 208),(116, 393),(417, 862),(755, 617),(123, 502),(901, 496)]
+
+        virus_spawner = VirusSpawner(state, assets, spawn_locations, x=-5, y=0,
                                      batch=main_batch, group=groups[5])
 
         # stage - polygon colliders
@@ -275,7 +272,8 @@ def main():
                                      batch=main_batch, group=groups[8])
 
         # virus spawner
-        virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
+        spawn_locations =[(139, 828),(293, 603),(330, 291),(101, 141),(483, 71),(754, 214),(941, 221),(634, 521),(782, 665),(871, 845)]
+        virus_spawner = VirusSpawner(state, assets, spawn_locations, x=-5, y=0,
                                      batch=main_batch, group=groups[5])
 
         # stage - polygon colliders
@@ -337,7 +335,8 @@ def main():
                                      batch=main_batch, group=groups[8])
 
         # virus spawner
-        virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
+        spawn_locations = [(97, 733),(96, 551),(169, 363),(468, 394),(659, 167),(774, 346),(896, 544),(732, 742),(570, 905),(359, 863)]
+        virus_spawner = VirusSpawner(state, assets, spawn_locations, x=-5, y=0,
                                      batch=main_batch, group=groups[5])
 
         # stage - polygon colliders
@@ -377,6 +376,10 @@ def main():
             if obj.type in ["virus"]:
                 pyglet.clock.unschedule(obj.release_particle)
             obj.dead = True
+
+    @window.event
+    def on_mouse_press(x, y, button, modifiers):
+        print(x, y)
 
     def update(dt):
 
@@ -444,11 +447,11 @@ def main():
 
         # player death
         if state.player_life <= 0:
-            print("player dead")
             state.game_level = -2
 
     pyglet.clock.schedule_interval(update, 1 / 120.0)
     pyglet.app.run()
+
 
 
 if __name__ == "__main__":

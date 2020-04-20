@@ -8,7 +8,7 @@ from modules.virus import Virus
 
 class VirusSpawner(GameObject):
 
-    def __init__(self, game_state, game_assets, *args, **kwargs):
+    def __init__(self, game_state, game_assets, spawn_locations, *args, **kwargs):
         """
         Class that spawns viruses
         :param game_state:
@@ -28,7 +28,7 @@ class VirusSpawner(GameObject):
         self.spawn_frequency = 8
         pyglet.clock.schedule_interval(self.spawn_virus, self.spawn_frequency)
 
-        self.spawn_locations = [(400, 100), (22, 700), (500, 700), (800, 500)]
+        self.spawn_locations = spawn_locations
 
     def spawn_virus(self, dt):
         """
