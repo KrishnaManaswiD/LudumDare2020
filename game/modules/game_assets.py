@@ -100,6 +100,7 @@ class GameAssets():
         self.create_image_asset("img_start_screen_A", "images/start_screen_a.png", True)
         self.create_image_asset("img_start_screen_B", "images/start_screen_b.png", True)
         self.create_image_asset("img_start_screen_C", "images/start_screen_c.png", True)
+        self.create_image_asset("img_start_screen_D", "images/start_screen_d.png", True)
         self.create_image_asset("img_game_over", "images/game_over_screen.png", True)
         self.create_image_asset("img_win", "images/win_screen.png", True)
 

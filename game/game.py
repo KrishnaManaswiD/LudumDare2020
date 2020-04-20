@@ -96,18 +96,18 @@ def main():
             # util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
 
     def handle_game_launch():
-        state.frg.image = assets.image_assets["img_start_screen_A"]
+        state.frg.image = assets.image_assets["img_start_screen_C"]
         state.frg.x = 500
         state.frg.y = 500
         state.game_level = 0
 
     def handle_start_screen():
         if key_handler[key.RIGHT]:
-            state.frg.image = assets.image_assets["img_start_screen_B"]
+            state.frg.image = assets.image_assets["img_start_screen_D"]
             state.frg.x = 500
             state.frg.y = 500
         if key_handler[key.LEFT]:
-            state.frg.image = assets.image_assets["img_start_screen_A"]
+            state.frg.image = assets.image_assets["img_start_screen_C"]
             state.frg.x = 500
             state.frg.y = 500
         if key_handler[key.ENTER]:
@@ -127,7 +127,6 @@ def main():
             state.player_life = 100
             state.score = 0
             remove_all_non_essential_game_objects()
-            p.play()
             load_stage_1()
 
     def handle_win_screen():
@@ -143,14 +142,11 @@ def main():
             state.player_life = 100
             state.score = 0
             remove_all_non_essential_game_objects()
-            p.play()
             load_stage_1()
 
     def handle_level_change():
         if state.game_level == -2:
             print("here")
-            p.pause()
-            assets.audio_assets["snd_game_over"].play()
             remove_all_non_essential_game_objects()
             handle_game_over_screen()
 
@@ -171,13 +167,9 @@ def main():
             remove_all_non_essential_game_objects()
             load_stage_3()
         elif state.game_level == 4:
-            p.pause()
-            assets.audio_assets["snd_win"].play()
             remove_all_non_essential_game_objects()
             handle_win_screen()
         elif state.game_level == -2:
-            p.pause()
-            assets.audio_assets["snd_game_over"].play()
             remove_all_non_essential_game_objects()
             handle_game_over_screen()
 
