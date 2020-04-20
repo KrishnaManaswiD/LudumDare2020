@@ -61,10 +61,10 @@ def main():
 
     # health bar
     health_bar = HealthBar(state, assets, x=state.player_life, y=900,
-                           batch=main_batch, group=groups[7])
+                           batch=main_batch, group=groups[8])
     # infection bar
     infection_bar = InfectionBar(state, assets, x=state.infection_level, y=920,
-                                 batch=main_batch, group=groups[7])
+                                 batch=main_batch, group=groups[8])
 
     # create a game level - collection of obstacles
     cells = []
@@ -92,7 +92,7 @@ def main():
     polygon5 = PolygonCollider(util.get_points(vertices5), state, assets, "poly5", group=groups[5])
     # polygon = PolygonCollider(util.get_points(vertices), state, assets, "poly", group=groups[5])
 
-    # frg = pyglet.sprite.Sprite(img=assets.image_assets["img_frg"], x=0, y=0, batch=main_batch, group=groups[7])
+    frg = pyglet.sprite.Sprite(img=assets.image_assets["img_frg"], x=0, y=0, batch=main_batch, group=groups[7])
 
     virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
                                  batch=main_batch, group=groups[5])
