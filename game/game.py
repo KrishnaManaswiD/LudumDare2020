@@ -129,9 +129,9 @@ def main():
             obj.child_objects = []  # clear the list
 
         # remove objects that are dead
-        for objects_to_remove in [obj for obj in game_objects if obj.dead]:
-            objects_to_remove.delete()
-            game_objects.remove(objects_to_remove)
+        for object_to_remove in [obj for obj in game_objects if obj.dead]:
+            object_to_remove.delete()
+            game_objects.remove(object_to_remove)
 
         # add new objects
         game_objects.extend(objects_to_add)
