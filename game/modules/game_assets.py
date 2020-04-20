@@ -80,8 +80,8 @@ class GameAssets():
         self.create_image_asset("img_infection", "images/infection.png", True)
         self.create_image_asset("img_infection_A_1", "images/infection_A_1.png", True)
         self.create_image_asset("img_infection_A_2", "images/infection_A_2.png", True)
-        self.create_image_asset("img_infection_A_1", "images/infection_B_1.png", True)
-        self.create_image_asset("img_infection_A_2", "images/infection_B_2.png", True)
+        self.create_image_asset("img_infection_B_1", "images/infection_B_1.png", True)
+        self.create_image_asset("img_infection_B_2", "images/infection_B_2.png", True)
 
         self.create_image_asset("img_spawner", "images/spawner.png", True)
 
