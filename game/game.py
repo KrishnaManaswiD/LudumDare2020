@@ -13,7 +13,7 @@ from modules.virus import Virus
 from modules.virus_spawner import VirusSpawner
 from modules.circle_collider import CircleCollider
 from modules.polygon_collider import PolygonCollider
-from modules.ui import StartScreen
+from modules.level_handler import LevelHandler
 from modules import util
 
 
@@ -44,9 +44,9 @@ def main():
     # common game state for all the game objects
     state = GameState()
 
-    # # start_screen
-    ui_start = StartScreen(state, assets, window, groups, x=500, y=500,
-                                 batch=main_batch, group=groups[8])
+    # UI - spawn it off screen
+    ui_start = LevelHandler(state, assets, window, groups, x=-1, y=-1,
+                            batch=main_batch, group=groups[8])
     window.push_handlers(ui_start)
     window.push_handlers(ui_start.key_handler)
     game_objects = [ui_start]

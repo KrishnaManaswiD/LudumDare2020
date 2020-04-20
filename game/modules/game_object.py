@@ -57,4 +57,4 @@ class GameObject(pyglet.sprite.Sprite):
             return self.check_polygon_point_collsion(other_object)
 
     def handle_collision_with(self, other_object):
-        self.dead = True
+        self.dead = False

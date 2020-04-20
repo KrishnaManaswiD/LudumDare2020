@@ -41,4 +41,8 @@ class GameState(object):
         self.infection_by_infection = 15
 
         # game levels
-        self.game_level = 0
+        self.game_level = -1
+
+        # foreground and background
+        self.bkg = None
+        self.frg = None
