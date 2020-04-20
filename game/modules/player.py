@@ -52,8 +52,8 @@ class Player(GameObject):
         Inflicts damage to the object. If the life of the object reaches 0, the object dies.
         :param amount: amount of damage to inflict
         """
-        self.game_state.player_life -= amount
-        if self.game_state.player_life <= 0:
+        self.game_state.player_life = max(0, self.game_state.player_life - amount)
+        if self.game_state.player_life == 0:
             self.dead = True
         else:
             self.dead = False

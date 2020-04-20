@@ -27,10 +27,12 @@ class Infection(GameObject):
         self.collider_type = "circle"               # Type of collider attached to this object
         self.collision_radius = self.image.get_max_width()/2        # collision radius
         self.previous_position = None
-        self.life = 100  # life of the infection
         self.move_step = 0.5     # Distance by which to move in each key press
         self.velocity_x = 0
         self.velocity_y = 0
+
+        self.life = 100                         # life of the infection TODO: make it relative to size
+        self.game_state.infection_level = min(100, self.game_state.infection_level+15)   # increase infection level
 
     def inflict_damage(self, amount):
         """

@@ -33,3 +33,6 @@ class GameState(object):
 
         # healths
         self.player_life = 100
+        self.human_life = 100
+
+        self.infection_level = 0

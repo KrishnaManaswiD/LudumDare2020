@@ -37,6 +37,7 @@ class Virus(GameObject):
         self.seeking_step = 1.2
 
         self.move_step = 0.5     # Distance by which to move in each key press
+        self.game_state.infection_level = min(100, self.game_state.infection_level+10)   # increase infection level
         pyglet.clock.schedule_interval(self.release_particle, 7)
 
     def release_particle(self, dt):
