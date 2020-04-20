@@ -5,10 +5,12 @@
 Submission for Ludum Date 46  
 **License**: This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 
-###Description:
+### Description:
 - keep the body alive   
 - clear the Bronchs of viruses and infection   
 - don't let infection grow before time runs out   
+
+![screenshot.png](///raw/3ac/c2/z/2f238.png)
 
 #### Dependencies:  
 - pyglet
