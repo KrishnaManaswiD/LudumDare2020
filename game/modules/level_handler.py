@@ -48,6 +48,8 @@ class LevelHandler(GameObject):
             self.handle_game_launch()
         elif self.game_state.game_level == 0:
             self.handle_start_screen()
+        elif self.game_state.game_level >0:
+            self.handle_levels()
 
     def handle_game_launch(self):
         self.game_state.frg.image = self.game_assets.image_assets["img_start_screen_A"]
@@ -68,11 +70,78 @@ class LevelHandler(GameObject):
             self.game_state.game_level = 1
             self.load_stage_1()
 
+    def handle_levels(self):
+        if self.key_handler[key.N]:
+            # delete existing game objects
+            self.game_state.game_level = 2
+            print("N key pressed")
+            self.load_stage_2()
+
     def load_stage_1(self):
         # background and foreground
-        self.game_state.bkg = GameObject(img=self.game_assets.image_assets["img_bkg"],
+        self.game_state.bkg = GameObject(img=self.game_assets.image_assets["img_bkg_level_1"],
                          x=0, y=0, batch=self.batch, group=self.game_groups[0])
-        self.game_state.frg = GameObject(img=self.game_assets.image_assets["img_frg"], x=0, y=0,
+        self.game_state.frg = GameObject(img=self.game_assets.image_assets["img_frg_level_1"], x=0, y=0,
+                         batch=self.batch, group=self.game_groups[7])
+
+        # player
+        player = Player(self.game_state, self.game_assets, x=100, y=400,
+                        batch=self.batch, group=self.game_groups[5])
+        self.game_window.push_handlers(player)
+        self.game_window.push_handlers(player.key_handler)
+
+        # health bar
+        health_bar = HealthBar(self.game_state, self.game_assets,
+                               x=self.game_state.player_life, y=900,
+                               batch=self.batch, group=self.game_groups[8])
+        # infection bar
+        infection_bar = InfectionBar(self.game_state, self.game_assets,
+                                     x=self.game_state.infection_level, y=920,
+                                     batch=self.batch, group=self.game_groups[8])
+
+        # virus spawner
+        virus_spawner = VirusSpawner(self.game_state, self.game_assets, x=-5, y=0,
+                                     batch=self.batch, group=self.game_groups[5])
+
+        # stage - polygon colliders
+        vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
+        vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
+        vertices3 = [256, 481, 375, 364, 606, 334, 697, 447, 627, 599, 402, 623]
+        vertices4 = [576, 1001, 601, 902, 744, 851, 837, 712, 969, 651, 1001, 665, 1001, 1001]
+        vertices5 = [0, 1001, 0, 811, 137, 810, 282, 876, 275, 1001]
+
+        polygon1 = PolygonCollider(util.get_points(vertices1), self.game_state,
+                                   self.game_assets, "poly1", group=self.game_groups[5])
+        polygon2 = PolygonCollider(util.get_points(vertices2), self.game_state,
+                                   self.game_assets, "poly2", group=self.game_groups[5])
+        polygon3 = PolygonCollider(util.get_points(vertices3), self.game_state,
+                                   self.game_assets, "poly3", group=self.game_groups[5])
+        polygon4 = PolygonCollider(util.get_points(vertices4), self.game_state,
+                                   self.game_assets, "poly4", group=self.game_groups[5])
+        polygon5 = PolygonCollider(util.get_points(vertices5), self.game_state,
+                                   self.game_assets, "poly5", group=self.game_groups[5])
+
+        # list of all game objects
+        self.child_objects.append(self.game_state.bkg)
+        self.child_objects.append(self.game_state.frg)
+
+        self.child_objects.append(player)
+        self.child_objects.append(virus_spawner)
+
+        self.child_objects.append(health_bar)
+        self.child_objects.append(infection_bar)
+
+        self.child_objects.append(polygon1)
+        self.child_objects.append(polygon2)
+        self.child_objects.append(polygon3)
+        self.child_objects.append(polygon4)
+        self.child_objects.append(polygon5)
+
+    def load_stage_2(self):
+        # background and foreground
+        self.game_state.bkg = GameObject(img=self.game_assets.image_assets["img_bkg_level_2"],
+                         x=0, y=0, batch=self.batch, group=self.game_groups[0])
+        self.game_state.frg = GameObject(img=self.game_assets.image_assets["img_frg_level_2"], x=0, y=0,
                          batch=self.batch, group=self.game_groups[7])
 
         # player

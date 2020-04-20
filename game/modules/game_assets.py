@@ -59,8 +59,15 @@ class GameAssets():
         self.create_image_asset("img_player_2", "images/player_2.png", True)
         self.create_image_asset("img_player_3", "images/player_3.png", True)
 
-        self.create_image_asset("img_bkg", "images/bkg_red_1000x1000.png", False)
-        self.create_image_asset("img_frg", "images/level_1_polygons_transparent.png", False)
+        self.create_image_asset("img_bkg_level_1", "images/bkg_red_1000x1000.png", False)
+        self.create_image_asset("img_frg_level_1", "images/level_1_polygons_transparent.png", False)
+
+        self.create_image_asset("img_bkg_level_2", "images/bkg_green_1000x1000.png", False)
+        self.create_image_asset("img_frg_level_2", "images/level_2_polygons_transparent.png", False)
+
+        self.create_image_asset("img_bkg_level_3", "images/bkg_blue_1000x1000.png", False)
+        self.create_image_asset("img_frg_level_3", "images/level_3_polygons_transparent.png", False)
+
         self.create_image_asset("img_circle", "images/circle_100.png", True)
 
         self.create_image_asset("img_virus", "images/virus.png", True)
