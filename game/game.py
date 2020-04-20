@@ -8,6 +8,7 @@ from modules.game_state import GameState
 from modules.player import Player
 from modules.healthbar import HealthBar
 from modules.virus import Virus
+from modules.virus_spawner import VirusSpawner
 from modules.circle_collider import CircleCollider
 from modules.polygon_collider import PolygonCollider
 from modules import util
@@ -86,9 +87,12 @@ def main():
 
     # frg = pyglet.sprite.Sprite(img=assets.image_assets["img_frg"], x=0, y=0, batch=main_batch, group=groups[7])
 
-    virus = Virus(state, assets, x=800, y=500, batch=main_batch, group=groups[5])
+    virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
+                                 batch=main_batch, group=groups[5])
+    # virus = Virus(state, assets, x=800, y=500, batch=main_batch, group=groups[5])
+
     # list of all game objects
-    game_objects = [player] + cells + [polygon1, polygon2, polygon3, polygon4, polygon5] + [virus]
+    game_objects = [player] + cells + [polygon1, polygon2, polygon3, polygon4, polygon5] + [virus_spawner]
 
     @window.event
     def on_draw():

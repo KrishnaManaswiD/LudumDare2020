@@ -28,7 +28,7 @@ class VirusParticle(GameObject):
         self.key_handler = key.KeyStateHandler()    # Key press handler
         self.collider_type = "circle"               # Type of collider attached to this object
         self.collision_radius = self.width/2        # collision radius
-        self.previous_position = None
+        self.previous_position = self.position
 
         self.move_step = 0.5     # Distance by which to move in each key press
         self.velocity_x = 0

@@ -58,23 +58,33 @@ class GameAssets():
         self.create_image_asset("img_player_1", "images/player_1.png", True)
         self.create_image_asset("img_player_2", "images/player_2.png", True)
         self.create_image_asset("img_player_3", "images/player_3.png", True)
+
         self.create_image_asset("img_bkg", "images/bkg_red_1000x1000.png", False)
         self.create_image_asset("img_frg", "images/openCVTest2_transparent.png", False)
         self.create_image_asset("img_circle", "images/circle_100.png", True)
+
         self.create_image_asset("img_virus", "images/virus.png", True)
         self.create_image_asset("img_virus_A", "images/virus_A.png", True)
         self.create_image_asset("img_virus_B", "images/virus_B.png", True)
         self.create_image_asset("img_virus_C", "images/virus_C.png", True)
         self.create_image_asset("img_virus_D", "images/virus_D.png", True)
         self.create_image_asset("img_virus_particle", "images/virus_particle.png", True)
+
         self.create_image_asset("img_bullet", "images/bullet.png", True)
         self.create_image_asset("img_bullet_1", "images/bullet_1.png", True)
         self.create_image_asset("img_bullet_2", "images/bullet_2.png", True)
         self.create_image_asset("img_bullet_3", "images/bullet_3.png", True)
+
         self.create_image_asset("img_health_bar", "images/health_bar.png", True)
+
         self.create_image_asset("img_infection", "images/infection.png", True)
         self.create_image_asset("img_infection_A_1", "images/infection_A_1.png", True)
         self.create_image_asset("img_infection_A_2", "images/infection_A_2.png", True)
+        self.create_image_asset("img_infection_A_1", "images/infection_B_1.png", True)
+        self.create_image_asset("img_infection_A_2", "images/infection_B_2.png", True)
+
+        self.create_image_asset("img_spawner", "images/spawner.png", True)
+
 
         # load audio
         self.create_audio_asset("bkg_music", "music/bkg.wav", True)
