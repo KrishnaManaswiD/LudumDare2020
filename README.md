@@ -10,7 +10,7 @@ Submission for Ludum Date 46
 - clear the Bronchs of viruses and infection   
 - don't let infection grow before time runs out   
 
-![ScreenShot_1](/RumbleInTheBronchs/resource/images/screenshot.png)
+![ScreenShot1](/RumbleInTheBronchs/resources/images/screenshot.png)
 
 
 #### Dependencies:  
