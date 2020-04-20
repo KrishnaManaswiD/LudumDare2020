@@ -79,34 +79,36 @@ class Player(GameObject):
             # fire bullet if space is pressed
             self.fire()
 
-        if symbol == key.S:
+        if symbol == key.DOWN:
             self.drift_speed -= 1
             if self.drift_speed < self.drift_speed_min:
                 self.drift_speed = self.drift_speed_min
 
-        if symbol == key.W:
+        if symbol == key.UP:
             self.drift_speed += 1
             if self.drift_speed > self.drift_speed_max:
                 self.drift_speed = self.drift_speed_max
 
     def update_object(self, dt):
         self.previous_position = self.position
+        ## Old controls
+        # if self.key_handler[key.A]:
+        #     self.x -= self.move_step
+        #
+        # if self.key_handler[key.D]:
+        #     self.x += self.move_step
+        #
+        # if self.key_handler[key.U]:
+        #     self.y += self.move_step
+        #
+        # if self.key_handler[key.S]:
+        #     self.y -= self.move_step
+
+        ## New controls
         if self.key_handler[key.LEFT]:
-            self.x -= self.move_step
-
-        if self.key_handler[key.RIGHT]:
-            self.x += self.move_step
-
-        if self.key_handler[key.UP]:
-            self.y += self.move_step
-
-        if self.key_handler[key.DOWN]:
-            self.y -= self.move_step
-
-        if self.key_handler[key.A]:
             self.rotation -= self.rotate_speed * dt
 
-        if self.key_handler[key.D]:
+        if self.key_handler[key.RIGHT]:
             self.rotation += self.rotate_speed * dt
 
         self.x += self.drift_speed * math.sin(self.rotation * math.pi / 180)
