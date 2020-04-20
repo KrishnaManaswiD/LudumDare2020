@@ -81,22 +81,22 @@ def main():
                                  batch=main_batch, group=groups[5])
     game_objects.append(virus_spawner)
 
-    vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
-    vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
-    vertices3 = [256, 481, 375, 364, 606, 334, 697, 447, 627, 599, 402, 623]
-    vertices4 = [576, 1001, 601, 902, 744, 851, 837, 712, 969, 651, 1001, 665, 1001, 1001]
-    vertices5 = [0, 1001, 0, 811, 137, 810, 282, 876, 275, 1001]
+    # vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
+    # vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
+    # vertices3 = [256, 481, 375, 364, 606, 334, 697, 447, 627, 599, 402, 623]
+    # vertices4 = [576, 1001, 601, 902, 744, 851, 837, 712, 969, 651, 1001, 665, 1001, 1001]
+    # vertices5 = [0, 1001, 0, 811, 137, 810, 282, 876, 275, 1001]
 
     @window.event
     def on_draw():
         window.clear()
         main_batch.draw()
-        if state.game_level == 1:
-            util.get_gl_polygon(vertices1).draw(GL_TRIANGLES)
-            util.get_gl_polygon(vertices2).draw(GL_TRIANGLES)
-            util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
-            util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
-            util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
+        # if state.game_level == 1:
+            # util.get_gl_polygon(vertices1).draw(GL_TRIANGLES)
+            # util.get_gl_polygon(vertices2).draw(GL_TRIANGLES)
+            # util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
+            # util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
+            # util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
 
     def handle_game_launch():
         state.frg.image = assets.image_assets["img_start_screen_A"]
@@ -128,6 +128,9 @@ def main():
             if state.game_level == 2:
                 remove_all_non_essential_game_objects()
                 load_stage_2()
+            if state.game_level == 3:
+                remove_all_non_essential_game_objects()
+                load_stage_3()
 
     def load_stage_1():
         pyglet.clock.schedule_once(trigger_level_change, 5)
@@ -175,7 +178,6 @@ def main():
 
     def load_stage_2():
         pyglet.clock.schedule_once(trigger_level_change, 5)
-        pyglet.clock.schedule_once(trigger_level_change, 5)
         # background and foreground
         state.bkg = GameObject(img=assets.image_assets["img_bkg_level_2"],
                                x=0, y=0, batch=main_batch, group=groups[0])
@@ -183,17 +185,17 @@ def main():
                                batch=main_batch, group=groups[7])
 
         # player
-        player = Player(state, assets, x=100, y=400,
+        player = Player(state, assets, x=500, y=200,
                         batch=main_batch, group=groups[5])
         window.push_handlers(player)
         window.push_handlers(player.key_handler)
 
         # stage - polygon colliders
-        vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
-        vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
-        vertices3 = [256, 481, 375, 364, 606, 334, 697, 447, 627, 599, 402, 623]
-        vertices4 = [576, 1001, 601, 902, 744, 851, 837, 712, 969, 651, 1001, 665, 1001, 1001]
-        vertices5 = [0, 1001, 0, 811, 137, 810, 282, 876, 275, 1001]
+        vertices1 = [403, 0, 343, 122, 173, 46, 151, 1]
+        vertices2 = [600, 58, 660, 0, 1001, 0, 998, 35, 656, 167]
+        vertices3 = [1001, 730, 795, 555, 739, 379, 871, 275, 1001, 275]
+        vertices4 = [1, 742, 0, 193, 170, 269, 204, 500, 123, 701]
+        vertices5 = [289, 1001, 374, 696, 626, 657, 730, 865, 657, 1000]
 
         polygon1 = PolygonCollider(util.get_points(vertices1), state,
                                    assets, "poly1", group=groups[5])
@@ -217,6 +219,46 @@ def main():
         game_objects.append(polygon3)
         game_objects.append(polygon4)
         game_objects.append(polygon5)
+
+    def load_stage_3():
+        pyglet.clock.schedule_once(trigger_level_change, 5)
+        # background and foreground
+        state.bkg = GameObject(img=assets.image_assets["img_bkg_level_2"],
+                               x=0, y=0, batch=main_batch, group=groups[0])
+        state.frg = GameObject(img=assets.image_assets["img_frg_level_2"], x=0, y=0,
+                               batch=main_batch, group=groups[7])
+
+        # player
+        player = Player(state, assets, x=500, y=200,
+                        batch=main_batch, group=groups[5])
+        window.push_handlers(player)
+        window.push_handlers(player.key_handler)
+
+        # stage - polygon colliders
+        vertices1 = [449, 252, 241, 209, 0, 239, 0, 0, 509, 0]
+        vertices2 = [1001, 404, 889, 352, 815, 145, 830, 0, 1001, 0]
+        vertices3 = [187, 601, 286, 489, 440, 532, 591, 509, 652, 627, 600, 739, 320, 742]
+        vertices4 = [699, 910, 864, 889, 977, 793, 1001, 799, 1001, 1001, 784, 1001]
+
+        polygon1 = PolygonCollider(util.get_points(vertices1), state,
+                                   assets, "poly1", group=groups[5])
+        polygon2 = PolygonCollider(util.get_points(vertices2), state,
+                                   assets, "poly2", group=groups[5])
+        polygon3 = PolygonCollider(util.get_points(vertices3), state,
+                                   assets, "poly3", group=groups[5])
+        polygon4 = PolygonCollider(util.get_points(vertices4), state,
+                                   assets, "poly4", group=groups[5])
+
+        # list of all game objects
+        game_objects.append(state.bkg)
+        game_objects.append(state.frg)
+
+        game_objects.append(player)
+
+        game_objects.append(polygon1)
+        game_objects.append(polygon2)
+        game_objects.append(polygon3)
+        game_objects.append(polygon4)
 
     def remove_all_non_essential_game_objects():
         for obj in game_objects:
