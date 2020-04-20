@@ -3,8 +3,8 @@ import pyglet
 from pyglet.window import key
 
 from modules.game_object import GameObject
+from modules.bullet import Bullet
 from modules import util
-from modules import bullet
 
 
 class Player(GameObject):
@@ -59,9 +59,9 @@ class Player(GameObject):
         """
         bullet_x = self.x
         bullet_y = self.y
-        new_bullet = bullet.Bullet(self.game_state, self.game_assets,
-                                   x=bullet_x, y=bullet_y, batch=self.batch,
-                                   group=self.group)    # mentioning group is important
+        new_bullet = Bullet(self.game_state, self.game_assets,
+                            x=bullet_x, y=bullet_y, batch=self.batch,
+                            group=self.group)    # mentioning group is important
         new_bullet.velocity_x = self.bullet_speed * math.sin(self.rotation * math.pi / 180)
         new_bullet.velocity_y = self.bullet_speed * math.cos(self.rotation * math.pi / 180)
         new_bullet.rotation = self.rotation
