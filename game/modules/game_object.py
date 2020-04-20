@@ -41,7 +41,7 @@ class GameObject(pyglet.sprite.Sprite):
     def check_point_polygon_collision(self, other_object):
         p = util.Point(self.x, self.y)
         polygon = other_object.vertices
-        return util.is_inside_polygon(p, polygon)
+        return util.is_inside_polygon_wn_algorithm(p, polygon)
 
     def check_polygon_point_collsion(self, other_object):
         p = util.Point(other_object.x, other_object.y)

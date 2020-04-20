@@ -71,11 +71,11 @@ def main():
     # for i in range(5):
     #     cells.append(CircleCollider(state, assets, x=i*100, y=100, batch=main_batch, group=groups[5]))
 
-    vertices0 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
-    vertices1 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
-    vertices2 = [256, 481, 375, 364, 606, 334, 697, 447, 627, 599, 402, 623]
-    vertices3 = [576, 1001, 601, 902, 744, 851, 837, 712, 969, 651, 1001, 665, 1001, 1001]
-    vertices4 = [0, 1001, 0, 811, 137, 810, 282, 876, 275, 1001]
+    vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
+    vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
+    vertices3 = [256, 481, 375, 364, 606, 334, 697, 447, 627, 599, 402, 623]
+    vertices4 = [576, 1001, 601, 902, 744, 851, 837, 712, 969, 651, 1001, 665, 1001, 1001]
+    vertices5 = [0, 1001, 0, 811, 137, 810, 282, 876, 275, 1001]
 
     # vertices = [200, 300, 600, 300, 600, 600, 200, 700]
 
@@ -87,7 +87,7 @@ def main():
 
     polygon1 = PolygonCollider(util.get_points(vertices1), state, assets, "poly1", group=groups[5])
     polygon2 = PolygonCollider(util.get_points(vertices2), state, assets, "poly2", group=groups[5])
-    # polygon3 = PolygonCollider(util.get_points(vertices3), state, assets, "poly3", group=groups[5])
+    polygon3 = PolygonCollider(util.get_points(vertices3), state, assets, "poly3", group=groups[5])
     polygon4 = PolygonCollider(util.get_points(vertices4), state, assets, "poly4", group=groups[5])
     polygon5 = PolygonCollider(util.get_points(vertices5), state, assets, "poly5", group=groups[5])
     # polygon = PolygonCollider(util.get_points(vertices), state, assets, "poly", group=groups[5])
@@ -99,17 +99,17 @@ def main():
     # virus = Virus(state, assets, x=800, y=500, batch=main_batch, group=groups[5])
 
     # list of all game objects
-    game_objects = [player] + cells + [health_bar, infection_bar] + [polygon1, polygon2, polygon4, polygon5]
+    game_objects = [player] + cells + [health_bar, infection_bar] + [polygon1, polygon2, polygon3, polygon4, polygon5]
 
     @window.event
     def on_draw():
         window.clear()
         main_batch.draw()
-        # util.get_gl_polygon(vertices1).draw(GL_TRIANGLES)
-        # util.get_gl_polygon(vertices2).draw(GL_TRIANGLES)
-        # util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
-        # util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
-        # util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
+        util.get_gl_polygon(vertices1).draw(GL_TRIANGLES)
+        util.get_gl_polygon(vertices2).draw(GL_TRIANGLES)
+        util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
+        util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
+        util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
         # util.get_gl_polygon(vertices).draw(GL_TRIANGLES)
 
     def update(dt):

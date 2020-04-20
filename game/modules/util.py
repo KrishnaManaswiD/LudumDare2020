@@ -183,3 +183,48 @@ def get_points(vertices):
     for i in range(0, len(vertices), 2):
         points.append(Point(vertices[i], vertices[i+1]))
     return points
+
+
+def is_left(p0, p1, p2):
+    """
+    Tests if a point is on left or right of an infinite line
+    input: three points p0, p1, p2
+    returns: >0 if p2 is left of line thru p0 and p1
+           =0 if p2 is on line
+           <0 if p2 is right of the line
+    """
+    return (p1.x - p0.x) * (p2.y - p0.y) - (p2.x - p0.x) * (p1.y - p0.y)
+
+
+def wn_poly(p, polygon):
+    """
+    winding number test for point in polygon
+    input: p - a point, polygon a list of points
+    return: wn - the winding number. =0 if p is outside
+    """
+    wn = 0
+    n = len(polygon)
+
+    # loop through all edges of polygon
+    i = 0
+    while True:
+        j = (i + 1) % n
+        if polygon[i].y <= p.y:
+            if polygon[j].y > p.y: # upward crossing
+                if is_left(polygon[i], polygon[j], p) > 0:
+                    wn += 1
+        else:
+            if polygon[j].y <= p.y: # downward crossing
+                if is_left(polygon[i], polygon[j], p) < 0:
+                    wn -= 1
+        i = j
+        if i == 0:
+            break
+    return wn
+
+
+def is_inside_polygon_wn_algorithm(p, polygon):
+    if wn_poly(p, polygon) == 0:
+        return False
+    else:
+        return True
