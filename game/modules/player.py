@@ -32,14 +32,20 @@ class Player(GameObject):
 
         self.height_max = 50
 
-        self.move_step = 10         # Distance by which to move in each key press
+        # self.move_step = 10         # Distance by which to move in each key press
 
         self.rotate_speed = 100
         self.drift_speed = 1
         self.drift_speed_max = 4
         self.drift_speed_min = -4
 
-        self.bullet_speed = 300     # speed with which a bullet is released
+        self.bullet_speed = 300         # speed with which a bullet is released
+
+        self.bullet_reload_timeout = 0.3    # time in seconds between two bullet shots
+        self.bullet_time_current = 0        # time in seconds until next bullet is ready
+
+        self.speed_update_timeout = 0.2     # time in seconds to wait between speed changes
+        self.speed_time_current = 0         # time in seconds until speed change is ready
 
     def inflict_damage(self, amount):
         """
@@ -67,30 +73,19 @@ class Player(GameObject):
         self.child_objects.append(new_bullet)
         self.game_assets.audio_assets["snd_player_fire"].play()
 
-    def on_key_press(self, symbol, modifiers):
-        """
-        Handle extra key presses (possibly lower frequency presses).
-        This function is automatically called by pyglet
-        :param symbol: key that has been pressed
-        :param modifiers: modifier keys like shift, ctrl and alt
-        """
-        if symbol == key.SPACE:
-            # fire bullet if space is pressed
-            self.fire()
-
-        if symbol == key.DOWN:
-            self.drift_speed -= 1
-            if self.drift_speed < self.drift_speed_min:
-                self.drift_speed = self.drift_speed_min
-
-        if symbol == key.UP:
-            self.drift_speed += 1
-            if self.drift_speed > self.drift_speed_max:
-                self.drift_speed = self.drift_speed_max
+    def check_bounds(self):
+        if self.x > 1000:
+            self.x = 1000
+        if self.y > 1000:
+            self.y = 1000
+        if self.x < 0:
+            self.x = 0
+        if self.y < 0:
+            self.y = 0
 
     def update_object(self, dt):
         self.previous_position = self.position
-        ## Old controls
+        # # Old controls
         # if self.key_handler[key.A]:
         #     self.x -= self.move_step
         #
@@ -103,7 +98,28 @@ class Player(GameObject):
         # if self.key_handler[key.S]:
         #     self.y -= self.move_step
 
-        ## New controls
+        # Fire bullets at a minimum interval of self.bullet_reload_time, if space is pressed
+        if self.bullet_time_current == 0:
+            if self.key_handler[key.SPACE]:
+            # fire bullet if space is pressed
+                self.fire()
+                self.bullet_time_current = self.bullet_reload_timeout  # start countdown
+        else:
+            self.bullet_time_current = max(0, self.bullet_time_current - dt)
+
+        # update speed at a minimum interval of self.speed_update_time, if up or down are pressed
+        if self.speed_time_current == 0:
+            if self.key_handler[key.DOWN]:
+                self.drift_speed = max(self.drift_speed_min, self.drift_speed-1)
+                self.speed_time_current = self.speed_update_timeout     # start countdown
+
+            if self.key_handler[key.UP]:
+                self.drift_speed = min(self.drift_speed_max, self.drift_speed+1)
+                self.speed_time_current = self.speed_update_timeout     # start countdown
+        else:
+            self.speed_time_current = max(0, self.speed_time_current - dt)
+
+        # # New controls
         if self.key_handler[key.LEFT]:
             self.rotation -= self.rotate_speed * dt
 
@@ -115,7 +131,7 @@ class Player(GameObject):
 
         self.check_bounds()
         # update state with the player's position
-        if self.dead == False:
+        if not self.dead:
             self.game_state.player_position = self.position
         else:
             self.game_state.player_position = None
@@ -155,13 +171,3 @@ class Player(GameObject):
             print("colliding with infection")
             self.position = self.previous_position
             self.inflict_damage(self.game_state.damage_player_by_infection)
-
-    def check_bounds(self):
-        if self.x > 1000:
-            self.x = 1000
-        if self.y > 1000:
-            self.y = 1000
-        if self.x < 0:
-            self.x = 0
-        if self.y < 0:
-            self.y = 0
