@@ -121,8 +121,7 @@ def main():
         if key_handler[key.N]:
             # delete existing game objects
             state.game_level = 2
-            print("N key pressed")
-            remove_all_game_objects()
+            remove_all_non_essential_game_objects()
             load_stage_2()
 
     def load_stage_1():
@@ -169,11 +168,14 @@ def main():
         game_objects.append(polygon5)
 
     def load_stage_2():
-        print("stage 2 loaded")
+        print(game_objects)
 
-    def remove_all_game_objects():
+    def remove_all_non_essential_game_objects():
         for obj in game_objects:
-            obj.dead = True
+            if obj.type not in ["virus_spawner", "healthbar", "infectionbar"]:
+                obj.dead = True
+            if obj.type in ["virus"]:
+                pyglet.clock.unschedule(obj.release_particle)
 
     def update(dt):
 
