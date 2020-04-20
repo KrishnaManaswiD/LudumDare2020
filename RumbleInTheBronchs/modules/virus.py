@@ -121,7 +121,7 @@ class Virus(GameObject):
             self.inflict_damage(self.game_state.damage_virus_by_bullet)
         elif other_object.type == "player":
             self.inflict_damage(self.game_state.damage_virus_by_player)
-            self.unschedule(self.release_particle)
+            pyglet.clock.unschedule(self.release_particle)
             self.dead = True  # bug fix
         elif other_object.type == "infection":
             self.dead = False
