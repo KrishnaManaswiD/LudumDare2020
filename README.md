@@ -17,10 +17,14 @@ Submission for Ludum Date 46
 ```bash
 pip install pyglet
 ```
+#### Clone this repository:
+```bash
+git clone https://github.com/ballipilla/LudumDare2020
+```
 
 #### To run the game:  
-change directory to RumbleInTheBronchs   
 ```bash
+cd LudumDare2020/RumbleInTheBronchs
 python run_game.py   
 ```
 
