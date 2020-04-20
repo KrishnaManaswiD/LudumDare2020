@@ -147,7 +147,7 @@ def is_inside_polygon(p, polygon):
         return False     # polygon should have at least three vertices
 
     # create a point at the right most end of the screen
-    end = Point(1000, p.y)
+    end = Point(p.x + 1005, p.y)
     intersections = 0    # counter for number of intersections
     i = 0
     while True:

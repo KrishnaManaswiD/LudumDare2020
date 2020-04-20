@@ -71,11 +71,11 @@ def main():
     # for i in range(5):
     #     cells.append(CircleCollider(state, assets, x=i*100, y=100, batch=main_batch, group=groups[5]))
 
-    vertices1 = [1000, 1000, 415, 1000, 435, 893, 537, 824, 824, 776, 1000, 801]
-    vertices2 = [45, 735, 232, 928, 255, 1000, 0, 1000, 0, 729]
-    vertices3 = [402, 378, 627, 402, 697, 554, 606, 667, 375, 637, 256, 520]
-    vertices4 = [1000, 0, 1000, 336, 969, 350, 837, 289, 744, 150, 601, 99, 576, 0]
-    vertices5 = [275, 0, 282, 125, 137, 191, 0, 190, 0, 0]
+    vertices1 = [1001, 0, 415, 0, 435, 108, 537, 177, 824, 225, 1001, 200]
+    vertices2 = [45, 266, 232, 73, 255, 0, 0, 0, 0, 272]
+    vertices3 = [402, 623, 627, 599, 697, 447, 606, 334, 375, 364, 256, 481]
+    vertices4 = [1001, 1001, 1001, 665, 969, 651, 837, 712, 744, 851, 601, 902, 576, 1001]
+    vertices5 = [275, 1001, 282, 876, 137, 810, 0, 811, 0, 1001]
 
     # vertices = [200, 300, 600, 300, 600, 600, 200, 700]
 
@@ -94,12 +94,12 @@ def main():
 
     frg = pyglet.sprite.Sprite(img=assets.image_assets["img_frg"], x=0, y=0, batch=main_batch, group=groups[7])
 
-    virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
-                                 batch=main_batch, group=groups[5])
+    # virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
+                                 # batch=main_batch, group=groups[5])
     # virus = Virus(state, assets, x=800, y=500, batch=main_batch, group=groups[5])
 
     # list of all game objects
-    game_objects = [player] + cells + [virus_spawner] + [health_bar, infection_bar] + [polygon1, polygon2, polygon4, polygon5]
+    game_objects = [player] + cells + [health_bar, infection_bar] + [polygon1, polygon2, polygon4, polygon5]
 
     @window.event
     def on_draw():

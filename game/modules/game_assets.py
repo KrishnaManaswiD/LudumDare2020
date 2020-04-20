@@ -60,7 +60,7 @@ class GameAssets():
         self.create_image_asset("img_player_3", "images/player_3.png", True)
 
         self.create_image_asset("img_bkg", "images/bkg_red_1000x1000.png", False)
-        self.create_image_asset("img_frg", "images/frg_red_1000x1000.png", False)
+        self.create_image_asset("img_frg", "images/openCVTest3_transparent.png", False)
         self.create_image_asset("img_circle", "images/circle_100.png", True)
 
         self.create_image_asset("img_virus", "images/virus.png", True)
