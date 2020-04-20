@@ -2,9 +2,8 @@ import random
 import pyglet
 
 from modules.game_object import GameObject
-from modules.game_state import GameState
-from modules.game_assets import GameAssets
 from modules.virus import Virus
+
 
 class VirusSpawner(GameObject):
 
@@ -25,7 +24,7 @@ class VirusSpawner(GameObject):
 
         self.collider_type = None
 
-        self.spawn_frequency = 8
+        self.spawn_frequency = 6
         pyglet.clock.schedule_interval(self.spawn_virus, self.spawn_frequency)
 
         self.spawn_locations = spawn_locations
@@ -38,7 +37,7 @@ class VirusSpawner(GameObject):
             location_index = random.randint(0, len(self.spawn_locations)-1)
             virus_location = self.spawn_locations[location_index]
             virus = Virus(self.game_state, self.game_assets,
-                          x=virus_location[0], y = virus_location[1],
+                          x=virus_location[0], y=virus_location[1],
                           batch=self.batch, group=self.group)
             self.child_objects.append(virus)
             self.game_assets.audio_assets["snd_virus_birth"].play()

@@ -4,7 +4,6 @@ from pyglet.window import key
 
 from modules.game_object import GameObject
 from modules.bullet import Bullet
-from modules import util
 
 
 class Player(GameObject):
@@ -17,7 +16,9 @@ class Player(GameObject):
         :param args:
         :param kwargs:
         """
-        images = [game_assets.image_assets["img_player_1"], game_assets.image_assets["img_player_2"], game_assets.image_assets["img_player_3"]]
+        images = [game_assets.image_assets["img_player_1"],
+                  game_assets.image_assets["img_player_2"],
+                  game_assets.image_assets["img_player_3"]]
         anim = pyglet.image.Animation.from_image_sequence(images, duration=0.5, loop=True)
         super(Player, self).__init__(img=anim, *args, **kwargs)
 
@@ -86,23 +87,11 @@ class Player(GameObject):
 
     def update_object(self, dt):
         self.previous_position = self.position
-        # # Old controls
-        # if self.key_handler[key.A]:
-        #     self.x -= self.move_step
-        #
-        # if self.key_handler[key.D]:
-        #     self.x += self.move_step
-        #
-        # if self.key_handler[key.U]:
-        #     self.y += self.move_step
-        #
-        # if self.key_handler[key.S]:
-        #     self.y -= self.move_step
 
         # Fire bullets at a minimum interval of self.bullet_reload_time, if space is pressed
         if self.bullet_time_current == 0:
             if self.key_handler[key.SPACE]:
-            # fire bullet if space is pressed
+                # fire bullet if space is pressed
                 self.fire()
                 self.bullet_time_current = self.bullet_reload_timeout  # start countdown
         else:
@@ -140,23 +129,6 @@ class Player(GameObject):
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
             self.dead = False
-            # intersection = util.circles_intersection(self.x, self.y,
-            #                                          self.collision_radius,
-            #                                          other_object.x, other_object.y,
-            #                                          other_object.collision_radius)
-
-            # if self.x < other_object.x and self.y < other_object.y:
-            #     self.x = intersection[0] - self.collision_radius
-            #     self.y = intersection[1] - self.collision_radius
-            # elif self.x > other_object.x and self.y < other_object.y:
-            #     self.x = intersection[0] + self.collision_radius
-            #     self.y = intersection[1] - self.collision_radius
-            # elif self.x > other_object.x and self.y > other_object.y:
-            #     self.x = intersection[0] + self.collision_radius
-            #     self.y = intersection[1] + self.collision_radius
-            # elif self.x < other_object.x and self.y < other_object.y:
-            #     self.x = intersection[0] - self.collision_radius
-            #     self.y = intersection[1] + self.collision_radius
             self.position = self.previous_position
         elif other_object.type == "polygon":
             self.dead = False

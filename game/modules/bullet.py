@@ -2,18 +2,11 @@ import pyglet
 from pyglet.window import key
 
 from modules.game_object import GameObject
-from modules.game_assets import GameAssets
+
 
 class Bullet(GameObject):
 
     def __init__(self, game_state, game_assets, *args, **kwargs):
-        """
-        Initializes the player object
-        :param game_state: game state
-        :param game_assets:
-        :param args:
-        :param kwargs:
-        """
         images = [game_assets.image_assets["img_bullet_1"], game_assets.image_assets["img_bullet_2"]]
         anim = pyglet.image.Animation.from_image_sequence(images, duration=0.2, loop=True)
         super(Bullet, self).__init__(img=anim, *args, **kwargs)
@@ -29,6 +22,16 @@ class Bullet(GameObject):
         self.move_step = 0.5  # Distance by which to move in each key press
         self.velocity_x = 0
         self.velocity_y = 0
+
+    def check_bounds(self):
+        if self.x > 1000:
+            self.dead = True
+        if self.y > 1000:
+            self.dead = True
+        if self.x < 0:
+            self.dead = True
+        if self.y < 0:
+            self.dead = True
 
     def update_object(self, dt):
         self.x += self.velocity_x * dt
@@ -50,13 +53,3 @@ class Bullet(GameObject):
             self.dead = False       # no friendly fire
         elif other_object.type == "infection":
             self.dead = True        # kill myself, damage to infection in handled by the infection
-
-    def check_bounds(self):
-        if self.x > 1000:
-            self.dead = True
-        if self.y > 1000:
-            self.dead = True
-        if self.x < 0:
-            self.dead = True
-        if self.y < 0:
-            self.dead = True

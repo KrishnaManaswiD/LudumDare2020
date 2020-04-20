@@ -28,7 +28,7 @@ class GameState(object):
         self.score_inc_virus_particle_killed = 10
         self.score_inc_infection_killed = 25
 
-        # player posiiton
+        # player position
         self.player_position = None
 
         # healths
@@ -55,4 +55,4 @@ class GameState(object):
         self.should_fire_new_particles = True
 
         self.time_counter = 0
-        self.level_time = 2  # seconds
+        self.level_time = 150  # seconds

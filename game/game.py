@@ -1,9 +1,5 @@
 import pyglet
-from pyglet.gl import GL_POINTS
-from pyglet.gl import GL_TRIANGLES
-from pyglet.window import mouse
 from pyglet.window import key
-from pyglet import clock
 
 from modules.game_assets import GameAssets
 from modules.game_state import GameState
@@ -11,11 +7,8 @@ from modules.game_object import GameObject
 from modules.player import Player
 from modules.healthbar import HealthBar
 from modules.infectionbar import InfectionBar
-from modules.virus import Virus
 from modules.virus_spawner import VirusSpawner
-from modules.circle_collider import CircleCollider
 from modules.polygon_collider import PolygonCollider
-from modules.level_handler import LevelHandler
 from modules import util
 
 
@@ -59,11 +52,7 @@ def main():
     key_handler = key.KeyStateHandler()
     window.push_handlers(key_handler)
 
-    # UI - spawn it off screen
-    # ui_start = LevelHandler(state, assets, window, groups, x=-1, y=-1,
-    #                         batch=main_batch, group=groups[8])
-    # window.push_handlers(ui_start)
-    # window.push_handlers(ui_start.key_handler)
+    # list of all game objects
     game_objects = []
 
     lbl_score = pyglet.text.Label('score: ' + str(state.score),
@@ -80,22 +69,10 @@ def main():
                                   anchor_x='center', anchor_y='center',
                                   batch=main_batch, group=groups[8])
 
-    # vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
-    # vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
-    # vertices3 = [256, 481, 375, 364, 606, 334, 697, 447, 627, 599, 402, 623]
-    # vertices4 = [576, 1001, 601, 902, 744, 851, 837, 712, 969, 651, 1001, 665, 1001, 1001]
-    # vertices5 = [0, 1001, 0, 811, 137, 810, 282, 876, 275, 1001]
-
     @window.event
     def on_draw():
         window.clear()
         main_batch.draw()
-        # if state.game_level == 1:
-            # util.get_gl_polygon(vertices1).draw(GL_TRIANGLES)
-            # util.get_gl_polygon(vertices2).draw(GL_TRIANGLES)
-            # util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
-            # util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
-            # util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
 
     def handle_game_launch():
         state.frg.image = assets.image_assets["img_start_screen_C"]
@@ -111,7 +88,6 @@ def main():
             load_stage_1()
 
     def handle_game_over_screen():
-        # print("game over")
         state.frg.image = assets.image_assets["img_game_over"]
         state.frg.group = groups[9]
 
@@ -363,7 +339,6 @@ def main():
         elif state.game_level > 0 and state.game_level < 5 and state.time_counter > state.level_time:
             handle_level_change()
 
-
         # primitive collision detection
         # loop over pairs of game objects
         for i in range(len(game_objects)):
@@ -424,7 +399,5 @@ def main():
     pyglet.app.run()
 
 
-
 if __name__ == "__main__":
-
     main()

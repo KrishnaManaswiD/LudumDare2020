@@ -1,7 +1,7 @@
 import pyglet
 
 
-class GameAssets():
+class GameAssets(object):
 
     def __init__(self, *args, **kwargs):
         """
@@ -16,7 +16,8 @@ class GameAssets():
 
         self.load_assets()
 
-    def set_anchor_at_centre(self, image):
+    @staticmethod
+    def set_anchor_at_centre(image):
         """
         Sets the anchor of an image to its centre
         :param image: Image whose anchor has to be set
@@ -47,14 +48,13 @@ class GameAssets():
         :param streaming: Boolean indicating if the audio has to be streamed live or pre-loaded
         """
         audio_asset = pyglet.resource.media(file, streaming=streaming)
-        self.audio_assets.update({keyword : audio_asset})
+        self.audio_assets.update({keyword: audio_asset})
 
     def load_assets(self):
         pyglet.resource.path = ['resources']
         pyglet.resource.reindex()
 
         # load images
-        # self.create_image_asset("img_player", "images/player.png", True)
         self.create_image_asset("img_player_1", "images/player_1.png", True)
         self.create_image_asset("img_player_2", "images/player_2.png", True)
         self.create_image_asset("img_player_3", "images/player_3.png", True)
@@ -68,19 +68,15 @@ class GameAssets():
         self.create_image_asset("img_bkg_level_3", "images/bkg_blue_1000x1000.png", False)
         self.create_image_asset("img_frg_level_3", "images/frg_blue_1000x1000.png", False)
 
-        self.create_image_asset("img_circle", "images/circle_100.png", True)
-
-        self.create_image_asset("img_virus", "images/virus.png", True)
-        self.create_image_asset("img_virus_A", "images/virus_A.png", True)
         self.create_image_asset("img_virus_B", "images/virus_B.png", True)
+        self.create_image_asset("img_virus_B_2", "images/virus_B_2.png", True)
         self.create_image_asset("img_virus_C", "images/virus_C.png", True)
-        self.create_image_asset("img_virus_D", "images/virus_D.png", True)
+        self.create_image_asset("img_virus_C_2", "images/virus_C_2.png", True)
         self.create_image_asset("img_virus_particle", "images/virus_particle.png", True)
 
         self.create_image_asset("img_bullet", "images/bullet.png", True)
         self.create_image_asset("img_bullet_1", "images/bullet_1.png", True)
         self.create_image_asset("img_bullet_2", "images/bullet_2.png", True)
-        self.create_image_asset("img_bullet_3", "images/bullet_3.png", True)
 
         self.create_image_asset("img_health_bar", "images/dna.png", True)
         self.image_assets["img_health_bar"].anchor_x = self.image_assets["img_health_bar"].width
@@ -88,22 +84,16 @@ class GameAssets():
         self.create_image_asset("img_infection_bar", "images/infectionbar.png", True)
         self.image_assets["img_infection_bar"].anchor_x = self.image_assets["img_infection_bar"].width
 
-        self.create_image_asset("img_infection", "images/infection.png", True)
         self.create_image_asset("img_infection_A_1", "images/infection_A_1.png", True)
         self.create_image_asset("img_infection_A_2", "images/infection_A_2.png", True)
-        self.create_image_asset("img_infection_B_1", "images/infection_B_1.png", True)
-        self.create_image_asset("img_infection_B_2", "images/infection_B_2.png", True)
 
         self.create_image_asset("img_spawner", "images/spawner.png", True)
         self.create_image_asset("img_dummy", "images/pixel.png", True)
 
-        self.create_image_asset("img_start_screen_A", "images/start_screen_a.png", False)
-        self.create_image_asset("img_start_screen_B", "images/start_screen_b.png", False)
         self.create_image_asset("img_start_screen_C", "images/start_screen_c.png", False)
         self.create_image_asset("img_start_screen_D", "images/start_screen_d.png", False)
         self.create_image_asset("img_game_over", "images/game_over_screen.png", False)
         self.create_image_asset("img_win", "images/win_screen.png", False)
-
 
         # load audio
         self.create_audio_asset("ost_music", "music/ost.wav", True)
@@ -111,9 +101,4 @@ class GameAssets():
         self.create_audio_asset("snd_player_fire", "sounds/player_fire.wav", False)
         self.create_audio_asset("snd_virus_birth", "sounds/virus_birth.wav", False)
         self.create_audio_asset("snd_infection_birth", "sounds/infection_birth.wav", False)
-        self.create_audio_asset("snd_impending_doom", "sounds/impending_doom.wav", False)
         self.create_audio_asset("snd_level_change", "sounds/level_change.wav", False)
-        self.create_audio_asset("snd_game_over", "sounds/game_over.wav", False)
-        self.create_audio_asset("snd_win", "sounds/win.wav", False)
-
-

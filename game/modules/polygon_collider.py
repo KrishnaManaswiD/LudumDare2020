@@ -1,7 +1,5 @@
-import pyglet
-
-from modules import game_assets, game_state
 from modules.game_object import GameObject
+
 
 class PolygonCollider(GameObject):
     def __init__(self, vertices, game_state, game_assets, name, *args, **kwargs):
@@ -13,7 +11,7 @@ class PolygonCollider(GameObject):
         :param args: additional positional arguments
         :param kwargs: additional keyword arguments
         """
-        images = [game_assets.image_assets["img_circle"]]
+        images = [game_assets.image_assets["img_dummy"]]
         super(PolygonCollider, self).__init__(img=images[0], *args, **kwargs)
 
         self.game_state = game_state
@@ -21,9 +19,10 @@ class PolygonCollider(GameObject):
         self.vertices = vertices
         self.collider_type = "polygon"
         self.name = name
-        #
-        # for v in vertices:
-        #     print("{}, {}".format(v.x, v.y))
+
+    def update_object(self, dt):
+        # state change code comes here
+        pass
 
     def handle_collision_with(self, other_object):
         if other_object.type == "circle":
@@ -38,7 +37,3 @@ class PolygonCollider(GameObject):
             self.dead = False
         elif other_object.type == "infection":
             self.dead = False
-
-    def update_object(self, dt):
-        # state change code comes here
-        pass

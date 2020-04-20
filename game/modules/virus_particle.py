@@ -1,11 +1,7 @@
-import random
-
-import pyglet
 from pyglet.window import key
 
 from modules.game_object import GameObject
 from modules.infection import Infection
-from modules import util
 
 
 class VirusParticle(GameObject):
@@ -39,6 +35,16 @@ class VirusParticle(GameObject):
         self.child_objects.append(infection)
         self.game_assets.audio_assets["snd_infection_birth"].play()
 
+    def check_bounds(self):
+        if self.x > 1000:
+            self.dead = True
+        if self.y > 1000:
+            self.dead = True
+        if self.x < 0:
+            self.dead = True
+        if self.y < 0:
+            self.dead = True
+
     def update_object(self, dt):
         self.previous_position = self.position
         self.x += self.velocity_x * dt
@@ -64,13 +70,3 @@ class VirusParticle(GameObject):
             self.dead = True  # kill myself
         elif other_object.type == "infection":
             self.dead = False
-
-    def check_bounds(self):
-        if self.x > 1000:
-            self.dead = True
-        if self.y > 1000:
-            self.dead = True
-        if self.x < 0:
-            self.dead = True
-        if self.y < 0:
-            self.dead = True

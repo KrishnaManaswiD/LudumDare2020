@@ -1,10 +1,7 @@
-import random
-
 import pyglet
 from pyglet.window import key
 
 from modules.game_object import GameObject
-from modules import util
 
 
 class Infection(GameObject):
@@ -33,7 +30,7 @@ class Infection(GameObject):
 
         self.life = 100                         # life of the infection TODO: make it relative to size
         self.game_state.infection_level = min(100,
-                                              self.game_state.infection_level+self.game_state.infection_by_infection)   # increase infection level
+                                              self.game_state.infection_level+self.game_state.infection_by_infection)
 
     def inflict_damage(self, amount):
         """

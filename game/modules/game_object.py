@@ -2,6 +2,7 @@ import pyglet
 
 from modules import util
 
+
 class GameObject(pyglet.sprite.Sprite):
     """
     A class to define a generic object in the game.

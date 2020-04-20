@@ -18,19 +18,21 @@ class Virus(GameObject):
         :param kwargs:
         """
         if game_state.game_level == 3:
-            image = game_assets.image_assets["img_virus_C"]
+            images = [game_assets.image_assets["img_virus_C"], game_assets.image_assets["img_virus_C_2"]]
+            anim = pyglet.image.Animation.from_image_sequence(images, duration=0.5, loop=True)
         else:
-            image = game_assets.image_assets["img_virus_B"]
+            images = [game_assets.image_assets["img_virus_B"], game_assets.image_assets["img_virus_B_2"]]
+            anim = pyglet.image.Animation.from_image_sequence(images, duration=0.5, loop=True)
 
         # TODO make this a sprite later
-        super(Virus, self).__init__(img=image, *args, **kwargs)
+        super(Virus, self).__init__(img=anim, *args, **kwargs)
         self.game_state = game_state  # game state object
         self.game_assets = game_assets
         self.type = "virus"                         # type of game object
 
         self.key_handler = key.KeyStateHandler()    # Key press handler
         self.collider_type = "circle"               # Type of collider attached to this object
-        self.collision_radius = self.width/2        # collision radius
+        self.collision_radius = self.image.get_max_width() / 2       # collision radius
         self.previous_position = self.position
 
         self.life = 100     # life of the virus
@@ -41,7 +43,7 @@ class Virus(GameObject):
 
         self.move_step = 0.8     # Distance by which to move in each key press
         self.game_state.infection_level = min(100, self.game_state.infection_level+self.game_state.infection_by_virus)   # increase infection level
-        pyglet.clock.schedule_interval(self.release_particle, 7)
+        pyglet.clock.schedule_interval(self.release_particle, 5)
 
     def release_particle(self, dt):
         if self.game_state.should_fire_new_particles:
@@ -74,6 +76,16 @@ class Virus(GameObject):
         player_position = self.game_state.player_position
         return util.distance((player_position[0], player_position[1]),
                              (self.x, self.y))
+
+    def check_bounds(self):
+        if self.x > 1000:
+            self.x = 1000
+        if self.y > 1000:
+            self.y = 1000
+        if self.x < 0:
+            self.x = 0
+        if self.y < 0:
+            self.y = 0
 
     def update_object(self, dt):
         self.previous_position = self.position
@@ -111,14 +123,3 @@ class Virus(GameObject):
             self.inflict_damage(self.game_state.damage_virus_by_player)
         elif other_object.type == "infection":
             self.dead = False
-
-    def check_bounds(self):
-        if self.x > 1000:
-            self.x = 1000
-        if self.y > 1000:
-            self.y = 1000
-        if self.x < 0:
-            self.x = 0
-        if self.y < 0:
-            self.y = 0
-

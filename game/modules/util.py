@@ -1,6 +1,7 @@
 import math
 import pyglet
 
+
 def distance(point_a=(0, 0), point_b=(0, 0)):
     """
     Returns the distance between the two specified points
