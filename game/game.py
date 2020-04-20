@@ -127,6 +127,7 @@ def main():
             state.player_life = 100
             state.score = 0
             remove_all_non_essential_game_objects()
+            p.play()
             load_stage_1()
 
     def handle_win_screen():
@@ -168,6 +169,7 @@ def main():
             remove_all_non_essential_game_objects()
             handle_win_screen()
         if state.game_level == -2:
+            p.pause()
             assets.audio_assets["snd_game_over"].play()
             remove_all_non_essential_game_objects()
             handle_game_over_screen()
@@ -424,7 +426,7 @@ def main():
 
         # update text
         lbl_score.text = 'score: ' + str(state.score)
-        lbl_timer.text = 'time left: ' + str(state.level_time - int(state.time_counter))
+        lbl_timer.text = 'time left: ' + str(max(0, state.level_time - int(state.time_counter)))
         print(str(state.level_time - int(state.time_counter)))
         # player death
         if state.player_life <= 0:
