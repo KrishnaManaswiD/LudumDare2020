@@ -201,6 +201,7 @@ def wn_poly(p, polygon):
     winding number test for point in polygon
     input: p - a point, polygon a list of points
     return: wn - the winding number. =0 if p is outside
+    reference : http://geomalgorithms.com/a03-_inclusion.html
     """
     wn = 0
     n = len(polygon)
