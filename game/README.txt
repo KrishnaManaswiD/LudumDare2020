@@ -8,7 +8,7 @@ License: This work is licensed under a Creative Commons Attribution-NonCommercia
 Description:
 keep the body alive
 clear the Bronchs of viruses and infection
-dont let infection grow before time runs out
+don't let infection grow before time runs out
 
 Dependencies: pyglet
 
