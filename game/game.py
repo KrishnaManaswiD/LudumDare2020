@@ -50,7 +50,7 @@ def main():
     state.bkg = GameObject(img=assets.image_assets["img_dummy"],
                                      x=-1, y=-1, batch=main_batch, group=groups[0])
     state.frg = GameObject(img=assets.image_assets["img_dummy"],
-                                     x=-1, y=-1, batch=main_batch, group=groups[7])
+                                     x=-1, y=-1, batch=main_batch, group=groups[9])
     state.game_level = -1  # pre launch state
 
     # keyboard input handler
@@ -67,7 +67,14 @@ def main():
     lbl_score = pyglet.text.Label('score: ' + str(state.score),
                                   font_name='Times New Roman',
                                   font_size=36,
-                                  x=700, y=window.height - 50,
+                                  x=870, y=window.height - 50,
+                                  anchor_x='center', anchor_y='center',
+                                  batch=main_batch, group=groups[8])
+
+    lbl_timer = pyglet.text.Label('time left: ' + str(state.level_time),
+                                  font_name='Times New Roman',
+                                  font_size=36,
+                                  x=850, y=window.height - 100,
                                   anchor_x='center', anchor_y='center',
                                   batch=main_batch, group=groups[8])
 
@@ -128,12 +135,14 @@ def main():
         state.frg.x = 500
         state.frg.y = 500
         game_objects.append(state.frg)
+        print("win")
         if key_handler[key.R]:
             state.game_level = 1
             state.infection_level = 0
             state.player_life = 100
             state.score = 0
             remove_all_non_essential_game_objects()
+            p.play()
             load_stage_1()
 
 
@@ -154,6 +163,7 @@ def main():
             remove_all_non_essential_game_objects()
             load_stage_3()
         if state.game_level == 4:
+            p.pause()
             assets.audio_assets["snd_win"].play()
             remove_all_non_essential_game_objects()
             handle_win_screen()
@@ -359,7 +369,7 @@ def main():
             handle_game_launch()
         elif state.game_level == 0:
             handle_start_screen()
-        elif state.game_level > 0 and state.game_level < 5 and state.time_counter > 20:
+        elif state.game_level > 0 and state.game_level < 5 and state.time_counter > state.level_time:
             handle_level_change()
         elif state.game_level == -2:
             handle_level_change()
@@ -410,11 +420,12 @@ def main():
         else:
             state.should_fire_new_particles = True
 
-        # update score
-        lbl_score.text = 'score: ' + str(state.score)
-
         state.time_counter += dt
 
+        # update text
+        lbl_score.text = 'score: ' + str(state.score)
+        lbl_timer.text = 'time left: ' + str(state.level_time - int(state.time_counter))
+        print(str(state.level_time - int(state.time_counter)))
         # player death
         if state.player_life <= 0:
             state.game_level = -2
