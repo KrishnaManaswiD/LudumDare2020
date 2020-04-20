@@ -146,7 +146,6 @@ def main():
 
     def handle_level_change():
         if state.game_level == -2:
-            print("here")
             remove_all_non_essential_game_objects()
             handle_game_over_screen()
 
@@ -368,10 +367,6 @@ def main():
             if obj.type in ["virus"]:
                 pyglet.clock.unschedule(obj.release_particle)
             obj.dead = True
-
-    @window.event
-    def on_mouse_press(x, y, button, modifiers):
-        print(x, y)
 
     def update(dt):
 

@@ -17,11 +17,14 @@ class Virus(GameObject):
         :param args:
         :param kwargs:
         """
-        images = [game_assets.image_assets["img_virus_B"]]
-        # TODO make this a sprite later
-        super(Virus, self).__init__(img=images[0], *args, **kwargs)
+        if game_state.game_level == 3:
+            image = game_assets.image_assets["img_virus_C"]
+        else:
+            image = game_assets.image_assets["img_virus_B"]
 
-        self.game_state = game_state                # game state object
+        # TODO make this a sprite later
+        super(Virus, self).__init__(img=image, *args, **kwargs)
+        self.game_state = game_state  # game state object
         self.game_assets = game_assets
         self.type = "virus"                         # type of game object
 
@@ -36,7 +39,7 @@ class Virus(GameObject):
         self.proximity_threshold = 200
         self.seeking_step = 1.2
 
-        self.move_step = 0.5     # Distance by which to move in each key press
+        self.move_step = 0.8     # Distance by which to move in each key press
         self.game_state.infection_level = min(100, self.game_state.infection_level+self.game_state.infection_by_virus)   # increase infection level
         pyglet.clock.schedule_interval(self.release_particle, 7)
 
