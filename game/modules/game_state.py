@@ -53,3 +53,5 @@ class GameState(object):
         # toggles for spawning new viruses and particles
         self.should_create_new_viruses = True
         self.should_fire_new_particles = True
+
+        self.time_counter = 0

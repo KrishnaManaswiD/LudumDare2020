@@ -60,13 +60,13 @@ class GameAssets():
         self.create_image_asset("img_player_3", "images/player_3.png", True)
 
         self.create_image_asset("img_bkg_level_1", "images/bkg_red_1000x1000.png", False)
-        self.create_image_asset("img_frg_level_1", "images/level_1_polygons_transparent.png", False)
+        self.create_image_asset("img_frg_level_1", "images/frg_red_1000x1000.png", False)
 
         self.create_image_asset("img_bkg_level_2", "images/bkg_green_1000x1000.png", False)
-        self.create_image_asset("img_frg_level_2", "images/level_2_polygons_transparent.png", False)
+        self.create_image_asset("img_frg_level_2", "images/frg_green_1000x1000.png", False)
 
         self.create_image_asset("img_bkg_level_3", "images/bkg_blue_1000x1000.png", False)
-        self.create_image_asset("img_frg_level_3", "images/level_3_polygons_transparent.png", False)
+        self.create_image_asset("img_frg_level_3", "images/frg_blue_1000x1000.png", False)
 
         self.create_image_asset("img_circle", "images/circle_100.png", True)
 
@@ -99,6 +99,8 @@ class GameAssets():
 
         self.create_image_asset("img_start_screen_A", "images/start_screen_a.png", True)
         self.create_image_asset("img_start_screen_B", "images/start_screen_b.png", True)
+        self.create_image_asset("img_game_over", "images/game_over_screen.png", True)
+        self.create_image_asset("img_win", "images/win_screen.png", True)
 
 
         # load audio

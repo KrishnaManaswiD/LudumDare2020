@@ -3,6 +3,7 @@ from pyglet.gl import GL_POINTS
 from pyglet.gl import GL_TRIANGLES
 from pyglet.window import mouse
 from pyglet.window import key
+from pyglet import clock
 
 from modules.game_assets import GameAssets
 from modules.game_state import GameState
@@ -63,7 +64,12 @@ def main():
     # window.push_handlers(ui_start.key_handler)
     game_objects = []
 
-
+    lbl_score = pyglet.text.Label('score: ' + str(state.score),
+                                  font_name='Times New Roman',
+                                  font_size=36,
+                                  x=700, y=window.height - 50,
+                                  anchor_x='center', anchor_y='center',
+                                  batch=main_batch, group=groups[8])
 
     # vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
     # vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
@@ -101,25 +107,49 @@ def main():
             state.game_level = 1
             load_stage_1()
 
-    def handle_level_change(dt):
-        if state.is_time_to_change_level:
-            state.is_time_to_change_level = False  # reset toggle
-            if state.infection_level < 30:  # if under threshold TODO: make this a variable
-                state.game_level += 1  # move to next level
-            else:
-                state.game_level = -2  # game over
+    def handle_game_over_screen():
+        state.frg.image = assets.image_assets["img_game_over"]
+        state.frg.x = 500
+        state.frg.y = 500
+        if key_handler[key.R]:
+            state.game_level = 1
+            state.infection_level = 0
+            state.player_life = 100
+            load_stage_1()
 
-            if state.game_level == 2:
-                remove_all_non_essential_game_objects()
-                state.infection_level = 0
-                load_stage_2()
-            if state.game_level == 3:
-                state.infection_level = 0
-                remove_all_non_essential_game_objects()
-                load_stage_3()
+    def handle_win_screen():
+        state.frg.image = assets.image_assets["img_win"]
+        state.frg.x = 500
+        state.frg.y = 500
+        if key_handler[key.R]:
+            state.game_level = 1
+            state.infection_level = 0
+            state.player_life = 100
+            load_stage_1()
+
+    def handle_level_change():
+        if state.infection_level < 30:  # if under threshold TODO: make this a variable
+            state.game_level += 1  # move to next level
+        else:
+            state.game_level = -2  # game over
+
+        if state.game_level == 2:
+            remove_all_non_essential_game_objects()
+            state.infection_level = 0
+            load_stage_2()
+        if state.game_level == 3:
+            state.infection_level = 0
+            remove_all_non_essential_game_objects()
+            load_stage_3()
+        if state.game_level == 4:
+            remove_all_non_essential_game_objects()
+            handle_win_screen()
+        if state.game_level == -2:
+            remove_all_non_essential_game_objects()
+            handle_game_over_screen()
 
     def load_stage_1():
-        pyglet.clock.schedule_once(trigger_level_change, 5)
+        state.time_counter = 0
         # background and foreground
         state.bkg = GameObject(img=assets.image_assets["img_bkg_level_1"],
                          x=0, y=0, batch=main_batch, group=groups[0])
@@ -140,7 +170,7 @@ def main():
 
         # infection bar
         infection_bar = InfectionBar(state, assets,
-                                     x=state.infection_level, y=920,
+                                     x=state.infection_level, y=970,
                                      batch=main_batch, group=groups[8])
 
         # virus spawner
@@ -182,7 +212,7 @@ def main():
         game_objects.append(polygon5)
 
     def load_stage_2():
-        pyglet.clock.schedule_once(trigger_level_change, 5)
+        state.time_counter = 0
         # background and foreground
         state.bkg = GameObject(img=assets.image_assets["img_bkg_level_2"],
                                x=0, y=0, batch=main_batch, group=groups[0])
@@ -202,7 +232,7 @@ def main():
 
         # infection bar
         infection_bar = InfectionBar(state, assets,
-                                     x=state.infection_level, y=920,
+                                     x=state.infection_level, y=970,
                                      batch=main_batch, group=groups[8])
 
         # virus spawner
@@ -244,7 +274,7 @@ def main():
         game_objects.append(polygon5)
 
     def load_stage_3():
-        pyglet.clock.schedule_once(trigger_level_change, 5)
+        state.time_counter = 0
         # background and foreground
         state.bkg = GameObject(img=assets.image_assets["img_bkg_level_3"],
                                x=0, y=0, batch=main_batch, group=groups[0])
@@ -252,7 +282,7 @@ def main():
                                batch=main_batch, group=groups[7])
 
         # player
-        player = Player(state, assets, x=0, y=800,
+        player = Player(state, assets, x=150, y=800,
                         batch=main_batch, group=groups[5])
         window.push_handlers(player)
         window.push_handlers(player.key_handler)
@@ -264,7 +294,7 @@ def main():
 
         # infection bar
         infection_bar = InfectionBar(state, assets,
-                                     x=state.infection_level, y=920,
+                                     x=state.infection_level, y=970,
                                      batch=main_batch, group=groups[8])
 
         # virus spawner
@@ -309,17 +339,13 @@ def main():
                 pyglet.clock.unschedule(obj.release_particle)
             obj.dead = True
 
-    def trigger_level_change(dt):
-        print(dt)
-        state.is_time_to_change_level = True
-
     def update(dt):
 
         if state.game_level == -1:
             handle_game_launch()
         elif state.game_level == 0:
             handle_start_screen()
-        elif state.game_level > 0:
+        elif state.game_level > 0 and state.time_counter > 5:
             handle_level_change()
 
         # primitive collision detection
@@ -368,9 +394,10 @@ def main():
         else:
             state.should_fire_new_particles = True
 
-        # score counting
+        # update score
+        lbl_score.text = 'score: ' + str(state.score)
 
-
+        state.time_counter += dt
 
     pyglet.clock.schedule_interval(update, 1 / 120.0)
     pyglet.app.run()
