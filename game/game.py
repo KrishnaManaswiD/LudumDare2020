@@ -92,7 +92,8 @@ def main():
     # virus = Virus(state, assets, x=800, y=500, batch=main_batch, group=groups[5])
 
     # list of all game objects
-    game_objects = [player] + cells + [polygon1, polygon2, polygon3, polygon4, polygon5] + [virus_spawner]
+    # game_objects = [player] + cells + [polygon1, polygon2, polygon3, polygon4, polygon5] + [virus_spawner]
+    game_objects = [player] + cells + [virus_spawner] + [health_bar]
 
     @window.event
     def on_draw():
