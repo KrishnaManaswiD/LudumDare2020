@@ -17,9 +17,9 @@ class GameState(object):
         self.damage_virus_by_bullet = 34
         self.damage_virus_by_player = 10
 
-        self.damage_player_by_virus = 30
-        self.damage_player_by_virus_particle = 10
-        self.damage_player_by_infection = 40
+        self.damage_player_by_virus = 15
+        self.damage_player_by_virus_particle = 5
+        self.damage_player_by_infection = 20
 
         self.damage_infection_by_bullet = 25
 

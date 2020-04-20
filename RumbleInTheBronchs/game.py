@@ -13,10 +13,7 @@ from modules import util
 
 
 def main():
-    window = pyglet.window.Window(1000, 1000, "game title",
-                                  resizable=True,
-                                  # style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS
-                                  )
+    window = pyglet.window.Window(1000, 1000, "Rumble in the Bronchs", resizable=True)
 
     # Store objects in a batch to load them efficiently
     main_batch = pyglet.graphics.Batch()
