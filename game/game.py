@@ -49,8 +49,10 @@ def main():
     # initialize dummy background and foreground
     state.bkg = GameObject(img=assets.image_assets["img_dummy"],
                                      x=-1, y=-1, batch=main_batch, group=groups[0])
+    state.bkg.type = "art"
     state.frg = GameObject(img=assets.image_assets["img_dummy"],
                                      x=-1, y=-1, batch=main_batch, group=groups[9])
+    state.frg.type = "art"
     state.game_level = -1  # pre launch state
 
     # keyboard input handler
@@ -97,30 +99,21 @@ def main():
 
     def handle_game_launch():
         state.frg.image = assets.image_assets["img_start_screen_C"]
-        state.frg.x = 500
-        state.frg.y = 500
         state.game_level = 0
 
     def handle_start_screen():
         if key_handler[key.RIGHT]:
             state.frg.image = assets.image_assets["img_start_screen_D"]
-            state.frg.x = 500
-            state.frg.y = 500
         if key_handler[key.LEFT]:
             state.frg.image = assets.image_assets["img_start_screen_C"]
-            state.frg.x = 500
-            state.frg.y = 500
         if key_handler[key.ENTER]:
             state.game_level = 1
             load_stage_1()
 
     def handle_game_over_screen():
         # print("game over")
-        state.frg = GameObject(img=assets.image_assets["img_game_over"], x=0, y=0,
-                               batch=main_batch, group=groups[7])
-        state.frg.x = 500
-        state.frg.y = 500
-        game_objects.append(state.frg)
+        state.frg.image = assets.image_assets["img_game_over"]
+
         if key_handler[key.R]:
             state.game_level = 0
             state.infection_level = 0
@@ -130,11 +123,8 @@ def main():
             load_stage_1()
 
     def handle_win_screen():
-        state.frg = GameObject(img=assets.image_assets["img_win"], x=0, y=0,
-                               batch=main_batch, group=groups[7])
-        state.frg.x = 500
-        state.frg.y = 500
-        game_objects.append(state.frg)
+        state.frg.image = assets.image_assets["img_win"]
+
         print(state.time_counter)
         if key_handler[key.R]:
             state.game_level = 1
@@ -176,10 +166,8 @@ def main():
     def load_stage_1():
         state.time_counter = 0
         # background and foreground
-        state.bkg = GameObject(img=assets.image_assets["img_bkg_level_1"],
-                         x=0, y=0, batch=main_batch, group=groups[0])
-        state.frg = GameObject(img=assets.image_assets["img_frg_level_1"], x=0, y=0,
-                         batch=main_batch, group=groups[7])
+        state.bkg.image = assets.image_assets["img_bkg_level_1"]
+        state.frg.image = assets.image_assets["img_frg_level_1"]
 
         # player
         player = Player(state, assets, x=100, y=400,
@@ -223,8 +211,8 @@ def main():
                                    assets, "poly5", group=groups[5])
 
         # list of all game objects
-        game_objects.append(state.bkg)
-        game_objects.append(state.frg)
+        # game_objects.append(state.bkg)
+        # game_objects.append(state.frg)
 
         game_objects.append(player)
 
@@ -241,10 +229,8 @@ def main():
     def load_stage_2():
         state.time_counter = 0
         # background and foreground
-        state.bkg = GameObject(img=assets.image_assets["img_bkg_level_2"],
-                               x=0, y=0, batch=main_batch, group=groups[0])
-        state.frg = GameObject(img=assets.image_assets["img_frg_level_2"], x=0, y=0,
-                               batch=main_batch, group=groups[7])
+        state.bkg.image = assets.image_assets["img_bkg_level_2"]
+        state.frg.image = assets.image_assets["img_frg_level_2"]
 
         # player
         player = Player(state, assets, x=500, y=200,
@@ -286,9 +272,6 @@ def main():
                                    assets, "poly5", group=groups[5])
 
         # list of all game objects
-        game_objects.append(state.bkg)
-        game_objects.append(state.frg)
-
         game_objects.append(player)
 
         game_objects.append(health_bar)
@@ -304,10 +287,8 @@ def main():
     def load_stage_3():
         state.time_counter = 0
         # background and foreground
-        state.bkg = GameObject(img=assets.image_assets["img_bkg_level_3"],
-                               x=0, y=0, batch=main_batch, group=groups[0])
-        state.frg = GameObject(img=assets.image_assets["img_frg_level_3"], x=0, y=0,
-                               batch=main_batch, group=groups[7])
+        state.bkg.image = assets.image_assets["img_bkg_level_3"]
+        state.frg.image = assets.image_assets["img_frg_level_3"]
 
         # player
         player = Player(state, assets, x=150, y=800,
@@ -346,9 +327,6 @@ def main():
                                    assets, "poly4", group=groups[5])
 
         # list of all game objects
-        game_objects.append(state.bkg)
-        game_objects.append(state.frg)
-
         game_objects.append(player)
 
         game_objects.append(health_bar)
@@ -362,11 +340,15 @@ def main():
 
     def remove_all_non_essential_game_objects():
         for obj in game_objects:
-            if obj.type in ["virus_spawner"]:
-                pyglet.clock.unschedule(obj.spawn_virus)
-            if obj.type in ["virus"]:
-                pyglet.clock.unschedule(obj.release_particle)
-            obj.dead = True
+            if obj.type is not "art":
+                if obj.type in ["virus_spawner"]:
+                    pyglet.clock.unschedule(obj.spawn_virus)
+                if obj.type in ["virus"]:
+                    pyglet.clock.unschedule(obj.release_particle)
+                obj.dead = True
+            else:
+                obj.dead = False
+
 
     def update(dt):
 
