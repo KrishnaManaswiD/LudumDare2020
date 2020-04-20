@@ -85,6 +85,9 @@ class GameAssets():
         self.create_image_asset("img_health_bar", "images/dna.png", True)
         self.image_assets["img_health_bar"].anchor_x = self.image_assets["img_health_bar"].width
 
+        self.create_image_asset("img_infection_bar", "images/infectionbar.png", True)
+        self.image_assets["img_infection_bar"].anchor_x = self.image_assets["img_infection_bar"].width
+
         self.create_image_asset("img_infection", "images/infection.png", True)
         self.create_image_asset("img_infection_A_1", "images/infection_A_1.png", True)
         self.create_image_asset("img_infection_A_2", "images/infection_A_2.png", True)
