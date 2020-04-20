@@ -94,11 +94,11 @@ def main():
     def on_draw():
         window.clear()
         main_batch.draw()
-        util.get_gl_polygon(vertices1).draw(GL_TRIANGLES)
-        util.get_gl_polygon(vertices2).draw(GL_TRIANGLES)
-        util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
-        util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
-        util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
+        # util.get_gl_polygon(vertices1).draw(GL_TRIANGLES)
+        # util.get_gl_polygon(vertices2).draw(GL_TRIANGLES)
+        # util.get_gl_polygon(vertices3).draw(GL_TRIANGLES)
+        # util.get_gl_polygon(vertices4).draw(GL_TRIANGLES)
+        # util.get_gl_polygon(vertices5).draw(GL_TRIANGLES)
 
     def update(dt):
         # primitive collision detection

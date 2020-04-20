@@ -70,8 +70,11 @@ class GameAssets():
         self.create_image_asset("img_bullet", "images/bullet.png", True)
         self.create_image_asset("img_bullet_1", "images/bullet_1.png", True)
         self.create_image_asset("img_bullet_2", "images/bullet_2.png", True)
+        self.create_image_asset("img_bullet_3", "images/bullet_3.png", True)
         self.create_image_asset("img_health_bar", "images/health_bar.png", True)
         self.create_image_asset("img_infection", "images/infection.png", True)
+        self.create_image_asset("img_infection_A_1", "images/infection_A_1.png", True)
+        self.create_image_asset("img_infection_A_2", "images/infection_A_2.png", True)
 
         # load audio
         self.create_audio_asset("bkg_music", "music/bkg.wav", True)

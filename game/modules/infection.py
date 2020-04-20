@@ -16,16 +16,16 @@ class Infection(GameObject):
         :param args:
         :param kwargs:
         """
-        images = [game_assets.image_assets["img_infection"]]
-        # TODO make this a sprite later
-        super(Infection, self).__init__(img=images[0], *args, **kwargs)
+        images = [game_assets.image_assets["img_infection_A_1"], game_assets.image_assets["img_infection_A_2"]]
+        anim = pyglet.image.Animation.from_image_sequence(images, duration=0.2, loop=True)
+        super(Infection, self).__init__(img=anim, *args, **kwargs)
 
         self.game_state = game_state                # game state object
         self.type = "infection"                # type of game object
 
         self.key_handler = key.KeyStateHandler()    # Key press handler
         self.collider_type = "circle"               # Type of collider attached to this object
-        self.collision_radius = self.width/2        # collision radius
+        self.collision_radius = self.image.get_max_width()/2        # collision radius
         self.previous_position = None
         self.life = 100  # life of the infection
         self.move_step = 0.5     # Distance by which to move in each key press
