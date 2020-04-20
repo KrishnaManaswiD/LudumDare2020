@@ -32,16 +32,22 @@ class Infection(GameObject):
         self.velocity_y = 0
 
         self.life = 100                         # life of the infection TODO: make it relative to size
-        self.game_state.infection_level = min(100, self.game_state.infection_level+15)   # increase infection level
+        self.game_state.infection_level = min(100,
+                                              self.game_state.infection_level+self.game_state.infection_by_infection)   # increase infection level
 
     def inflict_damage(self, amount):
         """
         Inflicts damage to the object. If the life of the object reaches 0, the object dies.
         :param amount: amount of damage to inflict
         """
-        self.life -= amount
-        if self.life <= 0:
+        self.life = max(0, self.life - amount)
+        if self.life == 0:
             self.game_state.score += self.game_state.score_inc_infection_killed   # increase score
+
+            # decrease infection level
+            self.game_state.infection_level = max(0,
+                                                  self.game_state.infection_level - self.game_state.infection_by_infection)
+
             self.dead = True
         else:
             self.dead = False

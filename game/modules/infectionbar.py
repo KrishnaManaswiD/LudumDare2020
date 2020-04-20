@@ -16,9 +16,7 @@ class InfectionBar(GameObject):
         self.game_assets = game_assets
 
     def update_object(self, dt):
-        print(self.game_state.infection_level)
         self.x = self.game_state.infection_level*5
-        print(self.x)
 
     def handle_collision_with(self, other_object):
         self.dead = False   # the infectionbar does not vanish on collision with anything

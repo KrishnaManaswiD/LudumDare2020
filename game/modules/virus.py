@@ -37,7 +37,7 @@ class Virus(GameObject):
         self.seeking_step = 1.2
 
         self.move_step = 0.5     # Distance by which to move in each key press
-        self.game_state.infection_level = min(100, self.game_state.infection_level+10)   # increase infection level
+        self.game_state.infection_level = min(100, self.game_state.infection_level+self.game_state.infection_by_virus)   # increase infection level
         pyglet.clock.schedule_interval(self.release_particle, 7)
 
     def release_particle(self, dt):
@@ -53,10 +53,15 @@ class Virus(GameObject):
         Inflicts damage to the object. If the life of the object reaches 0, the object dies.
         :param amount: amount of damage to inflict
         """
-        self.life -= amount
-        if self.life <= 0:
+        self.life = max(0, self.life - amount)
+        if self.life == 0:
             self.game_state.score += self.game_state.score_inc_virus_killed   # increase score
             pyglet.clock.unschedule(self.release_particle)      # unschedule the release particle function
+
+            # decrease infection level
+            self.game_state.infection_level = max(0,
+                                                  self.game_state.infection_level - self.game_state.infection_by_virus)
+
             self.dead = True
         else:
             self.dead = False
