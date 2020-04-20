@@ -113,6 +113,7 @@ def main():
     def handle_game_over_screen():
         # print("game over")
         state.frg.image = assets.image_assets["img_game_over"]
+        state.frg.group = groups[9]
 
         if key_handler[key.R]:
             state.game_level = 0
@@ -124,8 +125,8 @@ def main():
 
     def handle_win_screen():
         state.frg.image = assets.image_assets["img_win"]
+        state.frg.group = groups[9]
 
-        print(state.time_counter)
         if key_handler[key.R]:
             state.game_level = 1
             state.infection_level = 0
@@ -168,6 +169,7 @@ def main():
         # background and foreground
         state.bkg.image = assets.image_assets["img_bkg_level_1"]
         state.frg.image = assets.image_assets["img_frg_level_1"]
+        state.frg.group = groups[7]
 
         # player
         player = Player(state, assets, x=100, y=400,
@@ -340,7 +342,7 @@ def main():
 
     def remove_all_non_essential_game_objects():
         for obj in game_objects:
-            if obj.type is not "art":
+            if obj.type != "art":
                 if obj.type in ["virus_spawner"]:
                     pyglet.clock.unschedule(obj.spawn_virus)
                 if obj.type in ["virus"]:
