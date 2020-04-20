@@ -63,23 +63,7 @@ def main():
     # window.push_handlers(ui_start.key_handler)
     game_objects = []
 
-    # add game objects common to all levels
-    # health bar
-    health_bar = HealthBar(state, assets,
-                           x=state.player_life, y=900,
-                           batch=main_batch, group=groups[8])
-    game_objects.append(health_bar)
 
-    # infection bar
-    infection_bar = InfectionBar(state, assets,
-                                 x=state.infection_level, y=920,
-                                 batch=main_batch, group=groups[8])
-    game_objects.append(infection_bar)
-
-    # virus spawner
-    virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
-                                 batch=main_batch, group=groups[5])
-    game_objects.append(virus_spawner)
 
     # vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
     # vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
@@ -146,6 +130,21 @@ def main():
         window.push_handlers(player)
         window.push_handlers(player.key_handler)
 
+        # health bar
+        health_bar = HealthBar(state, assets,
+                               x=state.player_life, y=900,
+                               batch=main_batch, group=groups[8])
+
+
+        # infection bar
+        infection_bar = InfectionBar(state, assets,
+                                     x=state.infection_level, y=920,
+                                     batch=main_batch, group=groups[8])
+
+        # virus spawner
+        virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
+                                     batch=main_batch, group=groups[5])
+
         # stage - polygon colliders
         vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
         vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
@@ -170,6 +169,10 @@ def main():
 
         game_objects.append(player)
 
+        game_objects.append(health_bar)
+        game_objects.append(infection_bar)
+        game_objects.append(virus_spawner)
+
         game_objects.append(polygon1)
         game_objects.append(polygon2)
         game_objects.append(polygon3)
@@ -189,6 +192,20 @@ def main():
                         batch=main_batch, group=groups[5])
         window.push_handlers(player)
         window.push_handlers(player.key_handler)
+
+        # health bar
+        health_bar = HealthBar(state, assets,
+                               x=state.player_life, y=900,
+                               batch=main_batch, group=groups[8])
+
+        # infection bar
+        infection_bar = InfectionBar(state, assets,
+                                     x=state.infection_level, y=920,
+                                     batch=main_batch, group=groups[8])
+
+        # virus spawner
+        virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
+                                     batch=main_batch, group=groups[5])
 
         # stage - polygon colliders
         vertices1 = [403, 0, 343, 122, 173, 46, 151, 1]
@@ -214,6 +231,10 @@ def main():
 
         game_objects.append(player)
 
+        game_objects.append(health_bar)
+        game_objects.append(infection_bar)
+        game_objects.append(virus_spawner)
+
         game_objects.append(polygon1)
         game_objects.append(polygon2)
         game_objects.append(polygon3)
@@ -233,6 +254,20 @@ def main():
                         batch=main_batch, group=groups[5])
         window.push_handlers(player)
         window.push_handlers(player.key_handler)
+
+        # health bar
+        health_bar = HealthBar(state, assets,
+                               x=state.player_life, y=900,
+                               batch=main_batch, group=groups[8])
+
+        # infection bar
+        infection_bar = InfectionBar(state, assets,
+                                     x=state.infection_level, y=920,
+                                     batch=main_batch, group=groups[8])
+
+        # virus spawner
+        virus_spawner = VirusSpawner(state, assets, x=-5, y=0,
+                                     batch=main_batch, group=groups[5])
 
         # stage - polygon colliders
         vertices1 = [449, 252, 241, 209, 0, 239, 0, 0, 509, 0]
@@ -255,6 +290,10 @@ def main():
 
         game_objects.append(player)
 
+        game_objects.append(health_bar)
+        game_objects.append(infection_bar)
+        game_objects.append(virus_spawner)
+
         game_objects.append(polygon1)
         game_objects.append(polygon2)
         game_objects.append(polygon3)
@@ -262,12 +301,14 @@ def main():
 
     def remove_all_non_essential_game_objects():
         for obj in game_objects:
-            if obj.type not in ["virus_spawner", "healthbar", "infectionbar"]:
-                obj.dead = True
+            if obj.type in ["virus_spawner"]:
+                pyglet.clock.unschedule(obj.spawn_virus)
             if obj.type in ["virus"]:
                 pyglet.clock.unschedule(obj.release_particle)
+            obj.dead = True
 
     def trigger_level_change(dt):
+        print(dt)
         state.is_time_to_change_level = True
 
     def update(dt):
