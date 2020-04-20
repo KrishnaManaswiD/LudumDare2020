@@ -43,6 +43,9 @@ class GameState(object):
         # game levels
         self.game_level = -1
 
+        # level transition toggle
+        self.is_time_to_change_level = False
+
         # foreground and background
         self.bkg = None
         self.frg = None

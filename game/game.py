@@ -117,14 +117,20 @@ def main():
             state.game_level = 1
             load_stage_1()
 
-    def handle_levels():
-        if key_handler[key.N]:
-            # delete existing game objects
-            state.game_level = 2
-            remove_all_non_essential_game_objects()
-            load_stage_2()
+    def handle_level_change():
+        if state.is_time_to_change_level:
+            state.is_time_to_change_level = False  # reset toggle
+            if state.infection_level < 30:  # if under threshold TODO: make this a variable
+                state.game_level += 1  # move to next level
+            else:
+                state.game_level = -2  # game over
+
+            if state.game_level == 2:
+                remove_all_non_essential_game_objects()
+                load_stage_2()
 
     def load_stage_1():
+        pyglet.clock.schedule_once(trigger_level_change, 5)
         # background and foreground
         state.bkg = GameObject(img=assets.image_assets["img_bkg_level_1"],
                          x=0, y=0, batch=main_batch, group=groups[0])
@@ -168,7 +174,49 @@ def main():
         game_objects.append(polygon5)
 
     def load_stage_2():
-        print(game_objects)
+        pyglet.clock.schedule_once(trigger_level_change, 5)
+        pyglet.clock.schedule_once(trigger_level_change, 5)
+        # background and foreground
+        state.bkg = GameObject(img=assets.image_assets["img_bkg_level_2"],
+                               x=0, y=0, batch=main_batch, group=groups[0])
+        state.frg = GameObject(img=assets.image_assets["img_frg_level_2"], x=0, y=0,
+                               batch=main_batch, group=groups[7])
+
+        # player
+        player = Player(state, assets, x=100, y=400,
+                        batch=main_batch, group=groups[5])
+        window.push_handlers(player)
+        window.push_handlers(player.key_handler)
+
+        # stage - polygon colliders
+        vertices1 = [1001, 200, 824, 225, 537, 177, 435, 108, 415, 0, 1001, 0]
+        vertices2 = [0, 272, 0, 0, 255, 0, 232, 73, 45, 266]
+        vertices3 = [256, 481, 375, 364, 606, 334, 697, 447, 627, 599, 402, 623]
+        vertices4 = [576, 1001, 601, 902, 744, 851, 837, 712, 969, 651, 1001, 665, 1001, 1001]
+        vertices5 = [0, 1001, 0, 811, 137, 810, 282, 876, 275, 1001]
+
+        polygon1 = PolygonCollider(util.get_points(vertices1), state,
+                                   assets, "poly1", group=groups[5])
+        polygon2 = PolygonCollider(util.get_points(vertices2), state,
+                                   assets, "poly2", group=groups[5])
+        polygon3 = PolygonCollider(util.get_points(vertices3), state,
+                                   assets, "poly3", group=groups[5])
+        polygon4 = PolygonCollider(util.get_points(vertices4), state,
+                                   assets, "poly4", group=groups[5])
+        polygon5 = PolygonCollider(util.get_points(vertices5), state,
+                                   assets, "poly5", group=groups[5])
+
+        # list of all game objects
+        game_objects.append(state.bkg)
+        game_objects.append(state.frg)
+
+        game_objects.append(player)
+
+        game_objects.append(polygon1)
+        game_objects.append(polygon2)
+        game_objects.append(polygon3)
+        game_objects.append(polygon4)
+        game_objects.append(polygon5)
 
     def remove_all_non_essential_game_objects():
         for obj in game_objects:
@@ -177,6 +225,9 @@ def main():
             if obj.type in ["virus"]:
                 pyglet.clock.unschedule(obj.release_particle)
 
+    def trigger_level_change(dt):
+        state.is_time_to_change_level = True
+
     def update(dt):
 
         if state.game_level == -1:
@@ -184,8 +235,7 @@ def main():
         elif state.game_level == 0:
             handle_start_screen()
         elif state.game_level > 0:
-            handle_levels()
-
+            handle_level_change()
 
         # primitive collision detection
         # loop over pairs of game objects
@@ -216,6 +266,10 @@ def main():
 
         # add new objects
         game_objects.extend(objects_to_add)
+
+        # score counting
+
+
 
     pyglet.clock.schedule_interval(update, 1 / 120.0)
     pyglet.app.run()
