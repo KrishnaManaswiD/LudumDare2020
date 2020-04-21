@@ -8,18 +8,19 @@ Submission for Ludum Date 46
 ### Description:
 - keep the body alive   
 - clear the Bronchs of viruses and infection   
-- don't let infection grow before time runs out   
+- don't let infection grow before time runs out  
+
+### To play the game:
+Visit the required link and click download.
+- Linux users: [Linux](/RumbleInTheBronchs/dist/Linux/RumbleInTheBronchs_Linux)  
+- Windows users: [Win64](/RumbleInTheBronchs/dist/Win64/RumbleInTheBronchs_Win64.exe)
+- Mac users: [MacOS](/RumbleInTheBronchs/dist/MacOS/RumbleInTheBronchs_MacOS.zip)
 
 ![ScreenShot1](/RumbleInTheBronchs/resources/images/screenshot_1.png)
 ![ScreenShot2](/RumbleInTheBronchs/resources/images/screenshot_2.png)
 ![ScreenShot3](/RumbleInTheBronchs/resources/images/screenshot_3.png)
 
-### To play the game:
-- Linux users: Download [executable](/RumbleInTheBronchs/dist/Linux/RumbleInTheBronchs_Linux)  
-- Windows users: Download [exe](/RumbleInTheBronchs/dist/Win64/RumbleInTheBronchs_Win64.exe)
-- Mac users:Coming soon
-
-### To build it yourself:
+### To build the game yourself:
 You need to build it as below.
 
 #### Dependencies:  
