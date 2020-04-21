@@ -24,7 +24,7 @@ class VirusSpawner(GameObject):
 
         self.collider_type = None
 
-        self.spawn_frequency = 6
+        self.spawn_frequency = 8
         pyglet.clock.schedule_interval(self.spawn_virus, self.spawn_frequency)
 
         self.spawn_locations = spawn_locations

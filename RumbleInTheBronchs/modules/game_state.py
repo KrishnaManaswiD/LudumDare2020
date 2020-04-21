@@ -55,4 +55,4 @@ class GameState(object):
         self.should_fire_new_particles = True
 
         self.time_counter = 0
-        self.level_time = 150  # seconds
+        self.level_time = 60  # seconds
