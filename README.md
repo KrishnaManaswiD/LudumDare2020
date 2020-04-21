@@ -15,9 +15,9 @@ Submission for Ludum Date 46
 ![ScreenShot3](/RumbleInTheBronchs/resources/images/screenshot_3.png)
 
 ### To play the game:
-- Linux users: Download [this](/RumbleInTheBronchs/dist/Linux)  
-- Windows users: 
-- Mac users:
+- Linux users: Download [executable](/RumbleInTheBronchs/dist/Linux/RumbleInTheBronchs_Linux)  
+- Windows users: Download [exe](/RumbleInTheBronchs/dist/Win64/RumbleInTheBronchs_Win64.exe)
+- Mac users:Coming soon
 
 ### To build it yourself:
 You need to build it as below.
