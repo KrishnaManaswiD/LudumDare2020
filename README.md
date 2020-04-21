@@ -14,7 +14,11 @@ Submission for Ludum Date 46
 ![ScreenShot2](/RumbleInTheBronchs/resources/images/screenshot_2.png)
 ![ScreenShot3](/RumbleInTheBronchs/resources/images/screenshot_3.png)
 
+### On Windows:
+Just download the RumbleInTheBronx.exe file to play
 
+### Other platforms:
+You need to build it as below.
 
 #### Dependencies:  
 - pyglet
