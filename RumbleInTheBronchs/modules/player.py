@@ -141,6 +141,5 @@ class Player(GameObject):
         elif other_object.type == "virus_particle":
             self.inflict_damage(self.game_state.damage_player_by_virus_particle)
         elif other_object.type == "infection":
-            print("colliding with infection")
             self.position = self.previous_position
             self.inflict_damage(self.game_state.damage_player_by_infection)
